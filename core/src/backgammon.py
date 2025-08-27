@@ -1,4 +1,4 @@
-class Backgammon:
+class BackgammonGame:
     def __init__(self):
         self.turno = ''
         self.tablero = Tablero()
