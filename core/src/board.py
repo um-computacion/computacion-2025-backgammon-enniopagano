@@ -89,12 +89,35 @@ class Board:
                 raise PosicionOcupadaException("Hay más de dos fichas contrarias")
             
 
-        pos_origen.pop(0)
-        pos_destino.insert(0, turno)
+    def primer_cuadrante(self, turno: str) -> bool:
+        """Analiza el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
 
+        Devuelve True si todas sus fichas están en el cuadrante y False si no lo están
         
-tablero = Board()
-tablero.mover_ficha(1, 4, 'B')
+        Parametros
+        ----------
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
+        """
+        if turno == 'N':
+            rango1 = 0
+            rango2 = 6
+            fuera = self.__fuera__[1]
+        else:
+            rango1 = 18
+            rango2 = 24
+            fuera = self.__fuera__[0]
+        contador = 0
+        for i in range(rango1, rango2):
+            if len(self.__posiciones__[i]) != 0:
+                if self.__posiciones__[i][0] == turno:
+                    contador += len(self.__posiciones__[i])
+        if contador == 15 - fuera:
+            return True
+        else:
+            return False
+
+
 
         
         
