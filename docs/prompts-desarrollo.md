@@ -1,6 +1,6 @@
-Claude Sonnet 4 - 26/8/2024
+Claude Sonnet 4 - 26/8/2025
 
-**Prompt**: Estoy empezando un proyecto de programación en python orientado a objetos, el proyecto es un emulador del juego de mesa backgammon, lo realizaré a través de github, empezaré por crear el tablero. Cómo harías algo lo más parecido a un tablero de backgammon que se pueda mostrar por consola? Qué forma le darías?
+**Prompt:** Estoy empezando un proyecto de programación en python orientado a objetos, el proyecto es un emulador del juego de mesa backgammon, lo realizaré a través de github, empezaré por crear el tablero. Cómo harías algo lo más parecido a un tablero de backgammon que se pueda mostrar por consola? Qué forma le darías?
 
 No hubo instrucciones del sistema
 
@@ -9,7 +9,7 @@ Resultado de la IA:
 <!-- 
 La parte comentada siempre será la salida que está presente en el código
 La salida está en el codigo con modificaciones
-Aclaraciones pertinentes en JUSTIFICACION.md
+
 
 class BackgammonBoard:
     def __init__(self):

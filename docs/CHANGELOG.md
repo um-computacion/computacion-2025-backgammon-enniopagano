@@ -5,6 +5,21 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2024-09-01
+
+### Added
+
+- Método clase Board (mover)
+- Método clase Board (comer_ficha)
+- Método clase Board (sacar_ficha)
+- Test método clase Board (mover_ficha)
+- Test método clase Board (comer_ficha)
+- Test método clase Board (sacar_ficha)
+
+### Fixed
+
+- Ahora la función mover maneja toda la logica del movimiento de las fichas, y mover_ficha solo mueve de una posición a otra
+
 ## [0.1.3] - 2024-08-30
 
 ### Added

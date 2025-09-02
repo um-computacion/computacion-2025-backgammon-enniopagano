@@ -1,5 +1,6 @@
 import unittest
 from src.board import Board
+from typing import List
 
 class TestBoard(unittest.TestCase):
 
@@ -27,6 +28,51 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board.__posiciones__[12], ['N'] * 5)
         self.assertEqual(self.board.__posiciones__[7], ['N'] * 3)
         self.assertEqual(self.board.__posiciones__[5], ['N'] * 5)
+
+    def test_mover_ficha(self):
+        """Testea el correcto movimiento de una ficha de una posicion a otra"""
+        # Test del movimiento de una ficha a una posicion
+        self.board.mover_ficha(self.board.__posiciones__[0], self.board.__posiciones__[4], 'B')
+        self.assertEqual(self.board.__posiciones__[4], ['B'])
+        # Test del movimiento de otra ficha a la misma posicion
+        self.board.mover_ficha(self.board.__posiciones__[0], self.board.__posiciones__[4], 'B')
+        self.assertEqual(self.board.__posiciones__[4], ['B', 'B'])
+
+    def test_comer_ficha(self):
+        """Testea que la ficha en la posicion de destino pase a la barra dependiendo la ficha"""
+        # Test de ficha blanca comiendo a ficha negra
+        self.board.__posiciones__[6] = ['N']
+        pos_destino = self.board.__posiciones__[6]
+        self.board.comer_ficha(pos_destino, 'B')
+        self.assertEqual(pos_destino, [])
+        self.assertEqual(self.board.__barra__[1], 1)
+        # Test de ficha negra comiendo a ficha blanca
+        self.board.__posiciones__[6] = ['B']
+        pos_destino = self.board.__posiciones__[6]
+        self.board.comer_ficha(pos_destino, 'N')
+        self.assertEqual(self.board.__posiciones__[6], [])
+        self.assertEqual(self.board.__barra__[0], 1)
+
+    def test_sacar_ficha(self):
+        """Testea que la ficha en la posicion de origen pase a fuera del tablero"""
+        # Test de ficha blanca saliendo del tablero
+        pos_origen = self.board.__posiciones__[18]
+        self.board.sacar_ficha(pos_origen, 'B')
+        self.assertEqual(pos_origen, ['B', 'B', 'B', 'B'])
+        self.assertEqual(self.board.__fuera__[0], 1)
+        # Saca otra ficha
+        self.board.sacar_ficha(pos_origen, 'B')
+        self.assertEqual(pos_origen, ['B', 'B', 'B'])
+        self.assertEqual(self.board.__fuera__[0], 2)
+        # Test de ficha negra saliendo del tablero
+        pos_origen = self.board.__posiciones__[5]
+        self.board.sacar_ficha(pos_origen, 'N')
+        self.assertEqual(pos_origen, ['N', 'N', 'N', 'N'])
+        self.assertEqual(self.board.__fuera__[1], 1)
+        # Saca otra ficha
+        self.board.sacar_ficha(pos_origen, 'N')
+        self.assertEqual(pos_origen, ['N', 'N', 'N'])
+        self.assertEqual(self.board.__fuera__[1], 2)
 
     def test_primer_cuadrante_blancas(self):
         """Testea si todas las fichas de un jugador estan en su primer cuadrante, en este caso las fichas blancas"""

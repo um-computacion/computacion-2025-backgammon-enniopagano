@@ -1,3 +1,5 @@
+from typing import List
+
 class Board:
     """
     La clase que representa el tablero
@@ -18,6 +20,17 @@ class Board:
     -------
     setup_posicion_inicial()
         Inicializa el tablero con las posiciones iniciales
+    mover(posicion: int, dado: int, turno: str)
+        Maneja la lógica del movimiento de las fichas
+    mover_ficha(pos_origen: List[], pos_destino: List[], turno: str)
+        Mueve una ficha desde su posición actual a otra
+    comer_ficha(pos_origen: List[], pos_destino: List[], turno: str)
+        Mueve una ficha a una posicion donde haya una ficha contraria y la mueve a la barra
+    sacar_ficha(pos_origen: List[], turno: str)
+        Saca una ficha del tablero y la suma al contador del jugador
+    primer_cuadrante(turno: str)
+        Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
+        
     """
 
     def __init__(self):
@@ -46,8 +59,8 @@ class Board:
         self.__posiciones__[7] = ['N'] * 3      # Posicion 8: 3 fichas
         self.__posiciones__[5] = ['N'] * 5      # Posicion 6: 5 fichas
 
-    def mover_ficha(self, posicion: int, dado: int, turno: str) -> None:
-        """Mueve una ficha desde su posición actual a otra
+    def mover(self, posicion: int, dado: int, turno: str) -> None:
+        """"Maneja la lógica del movimiento de las fichas
 
         Parametros
         ----------
@@ -57,47 +70,106 @@ class Board:
             El valor de uno de los dados
         turno: str
             Puede ser 'B' o 'N' dependiendo del turno actual
-        
+
         Raises
         ------
         PosicionOcupadaException
             En la posición destino de la ficha hay 2 o más fichas contrarias
-        """
 
+        Ver Tambien
+        -----------
+        primer_cuadrante : Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
+        mover_ficha : Mueve una ficha desde su posición actual a otra
+        comer_ficha : Mueve una ficha a una posicion donde haya una ficha contraria y la mueve a la barra
+        sacar_ficha : Saca una ficha del talbero y la suma al contador del jugador
+        """
+        
         pos_origen = self.__posiciones__[posicion - 1]
         if turno == 'B':
             movimiento = dado
         else:
             movimiento = dado * -1
-        pos_destino = self.__posiciones__[posicion + movimiento - 1]
-        if pos_destino[0] == turno:
-            pos_origen.pop(0)
-            pos_destino.insert(0, turno)
-        elif pos_destino.len() == 0:
-            pos_origen.pop(0)
-            pos_destino.insert(0, turno)
-        else:
-            if pos_destino.len() == 1:
-                pos_origen.pop(0)
-                pos_destino.pop(0)
-                pos_destino.insert(0, turno)
-                if turno == 'B':
-                    self.__barra__[0] += 1
-                else:
-                    self.__barra__[1] += 1
+
+        if (self.__posiciones__.index(pos_origen) + movimiento) >= 24 or (self.__posiciones__.index(pos_origen) + movimiento) <= -1:
+            if primer_cuadrante(turno):
+                sacar_ficha(pos_origen, turno)
             else:
-                raise PosicionOcupadaException("Hay más de dos fichas contrarias")
-            
+                raise PrimerCuadranteIncompletoException("Faltan fichas en su primer cuadrante")
+        else:
+            pos_destino = self.__posiciones__[posicion + movimiento - 1]
+            if pos_destino[0] == turno:
+                mover_ficha(pos_origen, pos_destino, turno)
+            elif pos_destino.len() == 0:
+                mover_ficha(pos_origen, pos_destino, turno)
+            else:
+                if pos_destino.len() == 1:
+                    comer_ficha(pos_destino, turno)
+                    mover_ficha(pos_origen, pos_destino, turno)
+                else:
+                    raise PosicionOcupadaException("Hay más de dos fichas contrarias")
+
+
+    def mover_ficha(self, pos_origen: List[str], pos_destino: List[str], turno: str) -> None:
+        """Mueve una ficha desde su posición actual a otra
+
+        Parametros
+        ----------
+        pos_origen: List[]
+            Es la lista con la posicion actual de la ficha
+        pos_destino: List[]
+            Es la lista con la posicion a donde se va a mover la ficha
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
+        """
+
+        pos_origen.pop(0)
+        pos_destino.insert(0, turno)
+    
+    def comer_ficha(self, pos_destino: List[str], turno: str) -> None:
+        """Mueve una ficha a la barra del jugador dependiendo el color
+        
+        Parametros
+        ----------
+        pos_destino: List[]
+            Es la lista con la posicion a donde se va a mover la ficha
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
+        """
+        pos_destino.pop(0)
+        if turno == 'B':
+            self.__barra__[1] += 1
+        else:
+            self.__barra__[0] += 1
+
+    def sacar_ficha(self, pos_origen: int, turno: str) -> None:
+        """Saca una ficha del tablero y la suma al contador del jugador
+        
+        Parametros
+        ----------
+        pos_origen: List[]
+            Es la lista con la posicion actual de la ficha
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
+        """
+        pos_origen.pop(0)
+        if turno == 'B':
+            self.__fuera__[0] += 1
+        else:
+            self.__fuera__[1] += 1
 
     def primer_cuadrante(self, turno: str) -> bool:
-        """Analiza el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
-
-        Devuelve True si todas sus fichas están en el cuadrante y False si no lo están
+        """Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
         
         Parametros
         ----------
         turno: str
             Puede ser 'B' o 'N' dependiendo del turno actual
+
+        Retorna
+        -------
+        bool
+            'True' si todas sus fichas están en el cuadrante(sin contar las fichas fuera del tablero)
+            y 'False' si no lo están
         """
         if turno == 'N':
             rango1 = 0
@@ -117,7 +189,3 @@ class Board:
         else:
             return False
 
-
-
-        
-        
