@@ -1,3 +1,4 @@
+from src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
 from typing import List
 
 class Board:
@@ -189,8 +190,27 @@ class Board:
         else:
             return False
 
-class PosicionOcupadaException(Exception):
-    pass
+    def condicion_victoria(self, turno: str) -> bool:
+        """Verifica si algún jugador ganó la partida contando sus fichas fuera del tablero
+        
+        Parametros
+        ----------
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
 
-class PrimerCuadranteIncompletoException(Exception):
-    pass
+        Retorna
+        -------
+        bool
+            'True' si el contador llega a 15 y 'False' si es menor a 15
+        """
+
+        if turno == 'B':
+            if self.__fuera__[0] == 15:
+                return True
+            else:
+                return False
+        else:
+            if self.__fuera__[1] == 15:
+                return True
+            else:
+                return False

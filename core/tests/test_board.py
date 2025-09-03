@@ -1,5 +1,6 @@
 import unittest
-from src.board import Board, PosicionOcupadaException, PrimerCuadranteIncompletoException
+from src.board import Board
+from src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
 
 class TestBoard(unittest.TestCase):
 
@@ -184,6 +185,18 @@ class TestBoard(unittest.TestCase):
         self.board.__posiciones__[3] = []
         self.board.__fuera__[1] += 3
         self.assertEqual(self.board.primer_cuadrante('N'), True)
+
+    def test_condicion_victoria(self):
+        """Testea si algún jugador ganó la partida"""
+        # Test con tablero inicial (ningun jugador ganador)
+        self.assertEqual(self.board.condicion_victoria('B'), False)
+        self.assertEqual(self.board.condicion_victoria('N'), False)
+        # Test con jugador blanco ganador
+        self.board.__fuera__[0] = 15
+        self.assertEqual(self.board.condicion_victoria('B'), True)
+        # Test con jugador negro ganador
+        self.board.__fuera__[1] = 15
+        self.assertEqual(self.board.condicion_victoria('N'), True)
 
 if __name__ == '__main__':
     unittest.main()
