@@ -81,7 +81,7 @@ class Board:
         primer_cuadrante : Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
         mover_ficha : Mueve una ficha desde su posición actual a otra
         comer_ficha : Mueve una ficha a una posicion donde haya una ficha contraria y la mueve a la barra
-        sacar_ficha : Saca una ficha del talbero y la suma al contador del jugador
+        sacar_ficha : Saca una ficha del tablero y la suma al contador del jugador
         """
         
         pos_origen = self.__posiciones__[posicion - 1]
@@ -91,20 +91,20 @@ class Board:
             movimiento = dado * -1
 
         if (self.__posiciones__.index(pos_origen) + movimiento) >= 24 or (self.__posiciones__.index(pos_origen) + movimiento) <= -1:
-            if primer_cuadrante(turno):
-                sacar_ficha(pos_origen, turno)
+            if self.primer_cuadrante(turno):
+                self.sacar_ficha(pos_origen, turno)
             else:
                 raise PrimerCuadranteIncompletoException("Faltan fichas en su primer cuadrante")
         else:
             pos_destino = self.__posiciones__[posicion + movimiento - 1]
-            if pos_destino[0] == turno:
-                mover_ficha(pos_origen, pos_destino, turno)
-            elif pos_destino.len() == 0:
-                mover_ficha(pos_origen, pos_destino, turno)
+            if len(pos_destino) == 0:
+                self.mover_ficha(pos_origen, pos_destino, turno)
+            elif pos_destino[0] == turno:
+                self.mover_ficha(pos_origen, pos_destino, turno)
             else:
-                if pos_destino.len() == 1:
-                    comer_ficha(pos_destino, turno)
-                    mover_ficha(pos_origen, pos_destino, turno)
+                if len(pos_destino) == 1:
+                    self.comer_ficha(pos_destino, turno)
+                    self.mover_ficha(pos_origen, pos_destino, turno)
                 else:
                     raise PosicionOcupadaException("Hay más de dos fichas contrarias")
 
@@ -189,3 +189,8 @@ class Board:
         else:
             return False
 
+class PosicionOcupadaException(Exception):
+    pass
+
+class PrimerCuadranteIncompletoException(Exception):
+    pass

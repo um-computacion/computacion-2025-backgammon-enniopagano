@@ -5,6 +5,12 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.5] - 2024-09-02
+
+### Added
+
+- Test método clase Board (mover)
+
 ## [0.1.4] - 2024-09-01
 
 ### Added
