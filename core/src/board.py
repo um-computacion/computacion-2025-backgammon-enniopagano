@@ -1,4 +1,5 @@
-from typing import List
+from src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
+from typing import List # Usado para el type hinting
 
 class Board:
     """
@@ -30,7 +31,9 @@ class Board:
         Saca una ficha del tablero y la suma al contador del jugador
     primer_cuadrante(turno: str)
         Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
-        
+    condicion_victoria(turno: str)
+        Verifica si algún jugador ganó la partida contando sus fichas fuera del tablero
+    poner_ficha(dado: int, turno: str)
     """
 
     def __init__(self):
@@ -80,7 +83,7 @@ class Board:
         -----------
         primer_cuadrante : Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
         mover_ficha : Mueve una ficha desde su posición actual a otra
-        comer_ficha : Mueve una ficha a una posicion donde haya una ficha contraria y la mueve a la barra
+        comer_ficha : Mueve una ficha contraria a la barra del otro jugador
         sacar_ficha : Saca una ficha del tablero y la suma al contador del jugador
         """
         
@@ -126,7 +129,7 @@ class Board:
         pos_destino.insert(0, turno)
     
     def comer_ficha(self, pos_destino: List[str], turno: str) -> None:
-        """Mueve una ficha a la barra del jugador dependiendo el color
+        """Mueve una ficha contraria a la barra del otro jugador
         
         Parametros
         ----------
@@ -189,8 +192,27 @@ class Board:
         else:
             return False
 
-class PosicionOcupadaException(Exception):
-    pass
+    def condicion_victoria(self, turno: str) -> bool:
+        """Verifica si algún jugador ganó la partida contando sus fichas fuera del tablero
+        
+        Parametros
+        ----------
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
 
-class PrimerCuadranteIncompletoException(Exception):
-    pass
+        Retorna
+        -------
+        bool
+            'True' si el contador llega a 15 y 'False' si es menor a 15
+        """
+
+        if turno == 'B':
+            if self.__fuera__[0] == 15:
+                return True
+            else:
+                return False
+        else:
+            if self.__fuera__[1] == 15:
+                return True
+            else:
+                return False
