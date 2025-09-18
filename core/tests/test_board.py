@@ -1,6 +1,6 @@
 import unittest
-from src.board import Board
-from src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
+from core.src.board import Board
+from core.src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
 
 class TestBoard(unittest.TestCase):
 
