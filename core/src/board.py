@@ -1,4 +1,4 @@
-from src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
+from core.src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
 from typing import List # Usado para el type hinting
 
 class Board:
