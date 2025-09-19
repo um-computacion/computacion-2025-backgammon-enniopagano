@@ -1,4 +1,0 @@
-************* Module src
-src:1:0: F0001: No module named src (fatal)
-************* Module tests
-tests:1:0: F0001: No module named tests (fatal)
