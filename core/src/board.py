@@ -62,8 +62,23 @@ class Board:
         self.__posiciones__[7] = ['N'] * 3      # Posicion 8: 3 fichas
         self.__posiciones__[5] = ['N'] * 5      # Posicion 6: 5 fichas
 
+    @property
+    def posiciones(self) -> List[]:
+        """Devuelve las posiciones actuales"""
+        return self.__posiciones__
+
+    @property
+    def barra(self) -> List[]:
+        """Devuelve la cantidad de fichas en la barra de ambos jugadores"""
+        return self.__barra__
+
+    @property
+    def fuera(self) -> List[]:
+        """Devuelve la cantidad de fichas fuera de ambos jugadores"""
+        return self.__fuera__
+
     def mover(self, posicion: int, dado: int, turno: str) -> None:
-        """"Maneja la lógica del movimiento de las fichas
+        """Maneja la lógica del movimiento de las fichas
 
         Parametros
         ----------

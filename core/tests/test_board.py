@@ -8,7 +8,7 @@ class TestBoard(unittest.TestCase):
         self.board = Board()
 
     def test_setup_posicion_inicial(self):
-        """Testea inicie el tablero correctamente"""
+        """Testea que inicie el tablero correctamente"""
         self.assertEqual(len(self.board.__posiciones__), 24)
 
         self.assertEqual(self.board.__barra__, [0, 0])
@@ -28,6 +28,18 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board.__posiciones__[12], ['N'] * 5)
         self.assertEqual(self.board.__posiciones__[7], ['N'] * 3)
         self.assertEqual(self.board.__posiciones__[5], ['N'] * 5)
+
+    def test_getter_posiciones(self):
+        """Testea que el getter de posiciones devuelva el atributo correcto"""
+        self.assertEqual(self.board.posicion, self.board.__posiciones__)
+
+    def test_getter_barra(self):
+        """Testea que el getter de barra devuelva el atributo correcto"""
+        self.assertEqual(self.board.barra, self.board.__barra__)
+
+    def test_getter_fuera(self):
+        """Testea que el getter de fuera devuelva el atributo correcto"""
+        self.assertEqual(self.board.fuera, self.board.__fuera__)
 
     def test_mover_blancas(self):
         """Testea que siga la correcta lógica de movimiento, es decir, todos los caminos posibles de las fichas blancas"""
