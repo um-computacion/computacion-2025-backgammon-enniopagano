@@ -1,6 +1,6 @@
 import unittest
 from core.src.board import Board
-from core.src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
+from core.src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException, PosicionVaciaException
 
 class TestBoard(unittest.TestCase):
 
@@ -8,7 +8,7 @@ class TestBoard(unittest.TestCase):
         self.board = Board()
 
     def test_setup_posicion_inicial(self):
-        """Testea inicie el tablero correctamente"""
+        """Testea que inicie el tablero correctamente"""
         self.assertEqual(len(self.board.__posiciones__), 24)
 
         self.assertEqual(self.board.__barra__, [0, 0])
@@ -28,6 +28,18 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board.__posiciones__[12], ['N'] * 5)
         self.assertEqual(self.board.__posiciones__[7], ['N'] * 3)
         self.assertEqual(self.board.__posiciones__[5], ['N'] * 5)
+
+    def test_getter_posiciones(self):
+        """Testea que el getter de posiciones devuelva el atributo correcto"""
+        self.assertEqual(self.board.posiciones, self.board.__posiciones__)
+
+    def test_getter_barra(self):
+        """Testea que el getter de barra devuelva el atributo correcto"""
+        self.assertEqual(self.board.barra, self.board.__barra__)
+
+    def test_getter_fuera(self):
+        """Testea que el getter de fuera devuelva el atributo correcto"""
+        self.assertEqual(self.board.fuera, self.board.__fuera__)
 
     def test_mover_blancas(self):
         """Testea que siga la correcta lógica de movimiento, es decir, todos los caminos posibles de las fichas blancas"""
@@ -110,7 +122,7 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board.__barra__[0], 1)
 
     def test_sacar_ficha(self):
-        """Testea que la ficha en la posicion de origen pase a fuera del tablero"""
+        """Testea que la ficha en la posicion de origen pase a estar fuera del tablero"""
         # Test de ficha blanca saliendo del tablero
         pos_origen = self.board.__posiciones__[18]
         self.board.sacar_ficha(pos_origen, 'B')
@@ -197,6 +209,25 @@ class TestBoard(unittest.TestCase):
         # Test con jugador negro ganador
         self.board.__fuera__[1] = 15
         self.assertEqual(self.board.condicion_victoria('N'), True)
+
+    def test_get_ficha(self):
+        """Testea que devuelva correctamente si hay una ficha en la posicion dada"""
+        # Test con jugador blanco donde hay una ficha blanca
+        self.assertEqual(self.board.get_ficha(1, 'B'), True)
+        self.assertEqual(self.board.get_ficha(12, 'B'), True)
+        # Test con jugador blanco donde hay una ficha negra
+        self.assertEqual(self.board.get_ficha(6, 'B'), False)
+        # Test con jugador negro donde hay una ficha negra
+        self.assertEqual(self.board.get_ficha(24, 'N'), True)
+        self.assertEqual(self.board.get_ficha(13, 'N'), True)
+        # Test con jugador negro donde hay una ficha blanca
+        self.assertEqual(self.board.get_ficha(19, 'N'), False)
+        # Test con jugador blanco donde no hay ninguna ficha
+        with self.assertRaises(PosicionVaciaException):
+            self.board.get_ficha(2, 'B')
+        # Test con jugador negro donde no hay ninguna ficha
+        with self.assertRaises(PosicionVaciaException):
+            self.board.get_ficha(2, 'N')
 
 if __name__ == '__main__':
     unittest.main()

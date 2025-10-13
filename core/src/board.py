@@ -1,4 +1,4 @@
-from core.src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException
+from core.src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException, PosicionVaciaException
 from typing import List # Usado para el type hinting
 
 class Board:
@@ -62,8 +62,23 @@ class Board:
         self.__posiciones__[7] = ['N'] * 3      # Posicion 8: 3 fichas
         self.__posiciones__[5] = ['N'] * 5      # Posicion 6: 5 fichas
 
+    @property
+    def posiciones(self) -> List:
+        """Devuelve las posiciones actuales"""
+        return self.__posiciones__
+
+    @property
+    def barra(self) -> List:
+        """Devuelve la cantidad de fichas en la barra de ambos jugadores"""
+        return self.__barra__
+
+    @property
+    def fuera(self) -> List:
+        """Devuelve la cantidad de fichas fuera de ambos jugadores"""
+        return self.__fuera__
+
     def mover(self, posicion: int, dado: int, turno: str) -> None:
-        """"Maneja la lógica del movimiento de las fichas
+        """Maneja la lógica del movimiento de las fichas
 
         Parametros
         ----------
@@ -144,7 +159,7 @@ class Board:
         else:
             self.__barra__[0] += 1
 
-    def sacar_ficha(self, pos_origen: int, turno: str) -> None:
+    def sacar_ficha(self, pos_origen: List, turno: str) -> None:
         """Saca una ficha del tablero y la suma al contador del jugador
         
         Parametros
@@ -213,6 +228,37 @@ class Board:
                 return False
         else:
             if self.__fuera__[1] == 15:
+                return True
+            else:
+                return False
+
+    def get_ficha(self, posicion: int, turno: str) -> bool:
+        """
+        Verifica si hay una ficha del respectivo turno en la posicion dada
+        
+        Parametros
+        ----------
+        posicion: int
+            Es la posicion que se quiere verificar
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
+
+        Retorna
+        -------
+        bool
+            'True' si hay una ficha del respectivo turno y 'False' si es del turno contrario
+        
+        Raises
+        ------
+        PosicionVaciaException
+            En la posición dada no hay ninguna ficha
+        """
+
+        posicion = self.__posiciones__[posicion - 1]
+        if len(posicion) == 0:
+            raise PosicionVaciaException
+        else:
+            if posicion[0] == turno:
                 return True
             else:
                 return False

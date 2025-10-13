@@ -5,6 +5,12 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.7] - 2024-09-20
+
+### Added
+
+- Getters para los atributos clase Board
+
 ## [0.1.6] - 2024-09-03
 
 ### Added
