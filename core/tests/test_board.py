@@ -103,21 +103,12 @@ class TestBoard(unittest.TestCase):
         self.board.__barra__[0] = 2
         self.board.poner_ficha(3, 'B')
         self.assertEqual(self.board.__barra__[0], 1)
-        self.assertEqual(self.board.__posiciones__[2], ['B'])
+        self.assertEqual(self.board.__posiciones__[21], ['B'])
         # Test con ficha negra
         self.board.__barra__[1] = 2
         self.board.poner_ficha(3, 'N')
         self.assertEqual(self.board.__barra__[1], 1)
-        self.assertEqual(self.board.__posiciones__[21], ['N'])
-
-    def test_mover_ficha(self):
-        """Testea el correcto movimiento de una ficha de una posicion a otra"""
-        # Test del movimiento de una ficha a una posicion
-        self.board.mover_ficha(self.board.__posiciones__[0], self.board.__posiciones__[4], 'B')
-        self.assertEqual(self.board.__posiciones__[4], ['B'])
-        # Test del movimiento de otra ficha a la misma posicion
-        self.board.mover_ficha(self.board.__posiciones__[0], self.board.__posiciones__[4], 'B')
-        self.assertEqual(self.board.__posiciones__[4], ['B', 'B'])
+        self.assertEqual(self.board.__posiciones__[2], ['N'])
 
     def test_comer_ficha(self):
         """Testea que la ficha en la posicion de destino pase a la barra dependiendo la ficha"""

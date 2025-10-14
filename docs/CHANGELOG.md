@@ -9,10 +9,17 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ### Added
 
-- Reemplazado el método sacar_ficha por ficha_sacada
-- Reestructurad el método mover
 - Método clase Board (poner_ficha)
+- Método clase Board (ejecutar_movimiento)
 
+### Changed
+
+- Reemplazado el método sacar_ficha por ficha_sacada
+- Reestructurado el método mover
+
+### Removed
+
+- Método clase Board (mover_ficha)
 
 ## [0.1.7] - 2024-09-20
 
