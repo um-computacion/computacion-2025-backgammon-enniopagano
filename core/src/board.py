@@ -116,6 +116,25 @@ class Board:
         # Quitar ficha del origen
         pos_origen.pop(0)
 
+    def poner_ficha(self, dado: int, turno: str) -> None:
+        """Pone una ficha desde la barra al tablero"""
+        
+        # Calcular posición de entrada
+        if turno == 'B':
+            indice_destino = 24 - dado  # Entran desde el lado negro
+        else:
+            indice_destino = dado - 1    # Entran desde el lado blanco
+        
+        # Ejecutar el movimiento común
+        self._ejecutar_movimiento(indice_destino, turno, es_desde_barra=True)
+        
+        # Quitar ficha de la barra
+        if turno == 'B':
+            self.__barra__[0] -= 1
+        else:
+            self.__barra__[1] -= 1
+
+
     def mover_ficha(self, pos_origen: List[str], pos_destino: List[str], turno: str) -> None:
         """Mueve una ficha desde su posición actual a otra
 

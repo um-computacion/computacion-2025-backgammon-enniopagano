@@ -97,6 +97,19 @@ class TestBoard(unittest.TestCase):
         # self.assertEqual(self.board.__posiciones__[5], ['N'] * 14)
         self.assertEqual(self.board.__fuera__[1], 1)
 
+    def test_poner_ficha(self):
+        """Testea que se coloque correctamente una ficha desde la barra al tablero"""
+        # Test con ficha blanca
+        self.board.__barra__[0] = 2
+        self.board.poner_ficha(3, 'B')
+        self.assertEqual(self.board.__barra__[0], 1)
+        self.assertEqual(self.board.__posiciones__[2], ['B'])
+        # Test con ficha negra
+        self.board.__barra__[1] = 2
+        self.board.poner_ficha(3, 'N')
+        self.assertEqual(self.board.__barra__[1], 1)
+        self.assertEqual(self.board.__posiciones__[21], ['N'])
+
     def test_mover_ficha(self):
         """Testea el correcto movimiento de una ficha de una posicion a otra"""
         # Test del movimiento de una ficha a una posicion
