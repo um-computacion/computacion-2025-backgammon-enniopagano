@@ -5,6 +5,22 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.8] - 2024-10-13
+
+### Added
+
+- Método clase Board (poner_ficha)
+- Método clase Board (ejecutar_movimiento)
+
+### Changed
+
+- Reemplazado el método sacar_ficha por ficha_sacada
+- Reestructurado el método mover
+
+### Removed
+
+- Método clase Board (mover_ficha)
+
 ## [0.1.7] - 2024-09-20
 
 ### Added
