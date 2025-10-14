@@ -103,30 +103,18 @@ class Board:
         """
         
         pos_origen = self.__posiciones__[posicion - 1]
+        
+        # Calcular destino
         if turno == 'B':
-            movimiento = dado
+            indice_destino = (posicion - 1) + dado
         else:
-            movimiento = dado * -1
-        indice_destino = self.__posiciones__.index(pos_origen) + movimiento
-
-        if indice_destino >= 24 or indice_destino <= -1:
-            if self.primer_cuadrante(turno):
-                self.ficha_sacada(turno)
-            else:
-                raise PrimerCuadranteIncompletoException("Faltan fichas en su primer cuadrante")
-        else:
-            pos_destino = self.__posiciones__[posicion + movimiento - 1]
-            if len(pos_destino) == 0:
-                self.mover_ficha(pos_origen, pos_destino, turno)
-            elif pos_destino[0] == turno:
-                self.mover_ficha(pos_origen, pos_destino, turno)
-            else:
-                if len(pos_destino) == 1:
-                    self.comer_ficha(pos_destino, turno)
-                    self.mover_ficha(pos_origen, pos_destino, turno)
-                else:
-                    raise PosicionOcupadaException("Hay más de dos fichas contrarias")
-
+            indice_destino = (posicion - 1) - dado
+        
+        # Ejecutar el movimiento común
+        self._ejecutar_movimiento(indice_destino, turno, es_desde_barra=False)
+        
+        # Quitar ficha del origen
+        pos_origen.pop(0)
 
     def mover_ficha(self, pos_origen: List[str], pos_destino: List[str], turno: str) -> None:
         """Mueve una ficha desde su posición actual a otra
