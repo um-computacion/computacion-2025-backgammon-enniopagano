@@ -7,7 +7,7 @@ No hubo instrucciones del sistema
 
 Resultado de la IA:
 
-La parte en **negrita** siempre será la salida que está presente en el código
+La parte en **negrita** o encerrado entre asteriscos dobles **, siempre será la salida que está presente en el código
 La salida está en el codigo con modificaciones 
 
 class Board:

@@ -107,10 +107,11 @@ class Board:
             movimiento = dado
         else:
             movimiento = dado * -1
+        indice_destino = self.__posiciones__.index(pos_origen) + movimiento
 
-        if (self.__posiciones__.index(pos_origen) + movimiento) >= 24 or (self.__posiciones__.index(pos_origen) + movimiento) <= -1:
+        if indice_destino >= 24 or indice_destino <= -1:
             if self.primer_cuadrante(turno):
-                self.sacar_ficha(pos_origen, turno)
+                self.ficha_sacada(turno)
             else:
                 raise PrimerCuadranteIncompletoException("Faltan fichas en su primer cuadrante")
         else:
@@ -159,17 +160,14 @@ class Board:
         else:
             self.__barra__[0] += 1
 
-    def sacar_ficha(self, pos_origen: List, turno: str) -> None:
-        """Saca una ficha del tablero y la suma al contador del jugador
+    def ficha_sacada(self, turno: str) -> None:
+        """Suma una ficha al contador de fichas fuera del jugador
         
         Parametros
         ----------
-        pos_origen: List[]
-            Es la lista con la posicion actual de la ficha
         turno: str
             Puede ser 'B' o 'N' dependiendo del turno actual
         """
-        pos_origen.pop(0)
         if turno == 'B':
             self.__fuera__[0] += 1
         else:
