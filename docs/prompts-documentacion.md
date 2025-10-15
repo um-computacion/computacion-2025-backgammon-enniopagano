@@ -48,7 +48,7 @@ Resultado de la IA:
 
 - **name: Run tests and generate coverage report
   run: |
-    coverage run --source=src -m unittest discover tests
+    coverage run --source=core/src -m unittest discover -s core/tests
     coverage xml -o cobertura.xml
     coverage report -m > coverage_report.txt**
 
