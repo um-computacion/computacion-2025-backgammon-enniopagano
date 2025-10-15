@@ -10,11 +10,11 @@ class Board:
     Atributos
     ----------
     __posiciones__ : List[List[str]]
-        Una lista de listas para representar las posiciones del tablero
+        Las posiciones del tablero
     barra : List[int, int]
-        Una lista que representa las fichas capturadas, indice 0 para Blancas e indice 1 para Negras (default [0, 0])
+        La barra de los jugadores, indice 0 para Blancas e indice 1 para Negras (default [0, 0])
     fuera : List[int, int]
-        Una lista que representa las fichas fuera del tablero, indice 0 para Blancas e indice 1 para Negras (default [0, 0])
+        Fichas fuera del tablero, indice 0 para Blancas e indice 1 para Negras (default [0, 0])
     
 
     Métodos
