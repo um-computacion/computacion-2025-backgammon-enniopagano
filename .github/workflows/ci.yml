@@ -35,9 +35,9 @@ jobs:
 
       - name: Run tests and generate coverage report
         run: |
-          coverage run --source=core/src -m unittest discover -s core/tests
+          coverage run --rcfile=.coveragerc -m unittest discover
           coverage xml -o cobertura.xml
-          coverage report -m > coverage_report.txt
+          coverage report -m --rcfile=.coveragerc > coverage_report.txt
 
       - name: Run Pylint and generate report
         run: |
