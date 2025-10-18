@@ -5,6 +5,12 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.10] - 2024-10-18
+
+### Added
+
+- Clase Dados
+
 ## [0.1.9] - 2024-10-14
 
 ### Added
