@@ -5,12 +5,16 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.3] - 2025-10-19
+## [0.3.0] - 2025-10-19
 
 ### Added
 
+- Terminada la clase Dice
 - Método clase Dice (tirar)
 - Método clase Dice (usar)
+- Método clase Dice (dados_disponibles)
+- Método clase Dice (resetear)
+- Método clase Dice (fueron_dobles)
 
 ## [0.2.2] - 2025-10-18
 
