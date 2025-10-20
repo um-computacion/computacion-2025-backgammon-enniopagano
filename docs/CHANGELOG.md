@@ -5,16 +5,34 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.9] - 2024-10-14
+## [0.3.0] - 2025-10-19
+
+### Added
+
+- Terminada la clase Dice
+- Método clase Dice (tirar)
+- Método clase Dice (usar)
+- Método clase Dice (dados_disponibles)
+- Método clase Dice (resetear)
+- Método clase Dice (fueron_dobles)
+
+## [0.2.2] - 2025-10-18
+
+### Added
+
+- Clase Dice
+
+## [0.2.1] - 2025-10-14
 
 ### Added
 
 - Clase Backgammon
 
-## [0.1.8] - 2024-10-13
+## [0.2.0] - 2025-10-13
 
 ### Added
 
+- Terminada clase Board
 - Método clase Board (poner_ficha)
 - Método clase Board (ejecutar_movimiento)
 
@@ -27,26 +45,26 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 - Método clase Board (mover_ficha)
 
-## [0.1.7] - 2024-09-20
+## [0.1.7] - 2025-09-20
 
 ### Added
 
 - Getters para los atributos clase Board
 
-## [0.1.6] - 2024-09-03
+## [0.1.6] - 2025-09-03
 
 ### Added
 
 - Método clase Board (condicion_victoria)
 - Test método clase Board (condicion_victoria)
 
-## [0.1.5] - 2024-09-02
+## [0.1.5] - 2025-09-02
 
 ### Added
 
 - Test método clase Board (mover)
 
-## [0.1.4] - 2024-09-01
+## [0.1.4] - 2025-09-01
 
 ### Added
 
@@ -61,20 +79,20 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 - Ahora la función mover maneja toda la logica del movimiento de las fichas, y mover_ficha solo mueve de una posición a otra
 
-## [0.1.3] - 2024-08-30
+## [0.1.3] - 2025-08-30
 
 ### Added
 
 - Método clase Board (primer_cuadrante)
 - Test método clase Board (primer_cuadrante)
 
-## [0.1.2] - 2024-08-28
+## [0.1.2] - 2025-08-28
 
 ### Added
 
 - Método clase Board (mover_ficha)
 
-## [0.1.1] - 2024-08-26
+## [0.1.1] - 2025-08-26
 
 ### Added
 
@@ -82,7 +100,7 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 - Método clase Board (setup_posicion_inicial)
 - Test método clase Board (setup_posicion_inicial)
 
-## [0.1.0] - 2024-08-25
+## [0.1.0] - 2025-08-25
 
 ### Added
 
