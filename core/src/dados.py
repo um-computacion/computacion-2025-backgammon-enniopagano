@@ -36,6 +36,17 @@ class Dice:
         """Devuelve una copia de los valores actuales"""
         return self.__valores__.copy()
 
+    def usar(self, dado: int) -> None:
+        """Saca un dado de los valores una vez usado
+        
+        Parametros
+        ----------
+        dado: int
+            El valor del dado que se va a descartar
+        """
+
+        self.__valores__.remove(dado)
+
     
 
     

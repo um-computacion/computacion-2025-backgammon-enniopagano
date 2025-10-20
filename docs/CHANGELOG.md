@@ -10,6 +10,7 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 ### Added
 
 - Método clase Dice (tirar)
+- Método clase Dice (usar)
 
 ## [0.2.2] - 2025-10-18
 
