@@ -1,4 +1,5 @@
 from core.src.board import Board
+from core.src.dados import Dice
 from abc import ABC, abstractmethod
 
 class BackgammonGame:
@@ -19,9 +20,9 @@ class BackgammonGame:
     __juego_terminado__ : bool
         Si el juego terminó o no
     """
-    def __init__(self):
-        self.__tablero__ = Board()
-        self.__dados__ = Dados()
+    def __init__(self, board, dados):
+        self.__tablero__ = board
+        self.__dados__ = dados
         self.__jugador1__ = ''
         self.__jugador2__ = ''
         self.__turno__ = ''
