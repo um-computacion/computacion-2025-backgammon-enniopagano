@@ -79,7 +79,7 @@ class Board:
         return self.__fuera__
 
     def mover(self, posicion: int, dado: int, turno: str) -> None:
-        """Mueve una ficha desde una posicion del tablero a otra
+        """Mueve una ficha desde una posicion del tablero a otra/fuera del tablero  
 
         Parametros
         ----------
