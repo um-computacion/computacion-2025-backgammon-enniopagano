@@ -1,4 +1,9 @@
-from core.src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException, PosicionVaciaException
+from core.src.exceptions import (
+    PosicionOcupadaException, 
+    PrimerCuadranteIncompletoException, 
+    PosicionVaciaException,
+    MovimientoNoPosibleException
+)
 from typing import List # Usado para el type hinting
 
 class Board:
@@ -97,15 +102,16 @@ class Board:
         """
         
         pos_origen = self.__posiciones__[posicion - 1]
+        indice_posicion = posicion - 1
         
         # Calcular destino
         if turno == 'B':
-            indice_destino = (posicion - 1) + dado
+            indice_destino = (indice_posicion) + dado
         else:
-            indice_destino = (posicion - 1) - dado
+            indice_destino = (indice_posicion) - dado
         
         # Ejecutar el movimiento común
-        self._ejecutar_movimiento(indice_destino, turno, es_desde_barra=False)
+        self._ejecutar_movimiento(indice_destino, turno, indice_posicion, es_desde_barra=False)
         
         # Quitar ficha del origen
         pos_origen.pop(0)
@@ -140,17 +146,20 @@ class Board:
         else:
             self.__barra__[1] -= 1
 
-    def _ejecutar_movimiento(self, indice_destino: int, turno: str, es_desde_barra: bool) -> None:
+    def _ejecutar_movimiento(self, indice_destino: int, turno: str, indice_posicion=0, es_desde_barra=False) -> None:
         """Lógica común para mover/poner fichas
         
         Parametros
         ----------
         indice_destino: int
-            Índice (0-23) de la posición destino
+            Índice de la posición destino
         turno: str
             'B' o 'N'
         es_desde_barra: bool
             Si es True, se está poniendo desde barra. Si es False, es movimiento normal.
+        indice_posicion: int
+            La posición de la ficha que se va a mover, para pasarla a movimiento_posible
+
 
         Raises
         ------
@@ -169,8 +178,11 @@ class Board:
         # Caso especial: sacar ficha del tablero (bear off)
         if indice_destino >= 24 or indice_destino < 0:
             if self.primer_cuadrante(turno):
-                self.ficha_sacada(turno)
-                return
+                if self.movimiento_posible(turno, indice_posicion):
+                    self.ficha_sacada(turno)
+                    return
+                else:
+                    raise MovimientoNoPosibleException("Debes mover fichas en las posiciones de atrás")
             else:
                 raise PrimerCuadranteIncompletoException("No puedes sacar fichas aún")
         
@@ -303,3 +315,34 @@ class Board:
                 return True
             else:
                 return False
+
+    def movimiento_posible(self, turno: str, indice_posicion: int) -> bool:
+        """Verifica si un movimiento desde el ultimo cuadrante a fuera del tablero es posible
+        
+        Parametros
+        ----------
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
+        indice_posicion: int
+            La posición de la ficha que se va a mover
+
+        
+        """
+
+        if turno == 'B':
+            pos_restantes = -(18 - indice_posicion)
+            sumador = -1
+        else:
+            pos_restantes = 5 - indice_posicion
+            sumador = 1
+
+        if pos_restantes == 0:
+            return True
+
+        contador = sumador
+        for t in range(pos_restantes):
+            if len(self.__posiciones__[indice_posicion + contador]) > 0:
+                return False
+            contador += sumador
+
+        return True

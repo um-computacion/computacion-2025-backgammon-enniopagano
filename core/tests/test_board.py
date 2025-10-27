@@ -228,6 +228,24 @@ class TestBoard(unittest.TestCase):
         with self.assertRaises(PosicionVaciaException):
             self.board.get_ficha(2, 'N')
 
+    def test_movimiento_posible_blancas(self):
+        """Testea que los movimientos a fuera del tablero estén permitidos"""
+        self.board.__posiciones__[23] = []
+        self.board.__posiciones__[21] = ['B']
+        self.assertEqual(self.board.movimiento_posible('B', 21), False)
+        self.assertEqual(self.board.movimiento_posible('B', 18), True)
+        self.board.__posiciones__[18] = []
+        self.assertEqual(self.board.movimiento_posible('B', 21), True)
+
+    def test_movimiento_posible_negras(self):
+        """Testea que los movimientos a fuera del tablero estén permitidos"""
+        self.board.__posiciones__[0] = []
+        self.board.__posiciones__[2] = ['N']
+        self.assertEqual(self.board.movimiento_posible('N', 2), False)
+        self.assertEqual(self.board.movimiento_posible('N', 5), True)
+        self.board.__posiciones__[5] = []
+        self.assertEqual(self.board.movimiento_posible('N', 2), True)
+
 if __name__ == '__main__':
     unittest.main()
 

@@ -16,7 +16,11 @@ Integración continua
 Para la integración continua usé una mezcla entre el archivo .yml que pasó el profesor Quinteros a Slack en el canal de la clase 09-03, y otro archivo que generosamente compartió mi compañero Joaquín Basile al canal de Backgammon el miércoles 3 de septiembre, junto con ciertas modificaciones sugeridas por la IA para que se amolde mejor a mí proyecto. El archivo de mi compañero aporta una solución a la hora de crear PR para que se actualicen los reportes del workflow además de un extra step que mergea automáticamente dichos PR.
 
 Excepciones
-Las primeras excepciones son las que pertenecen al tablero, y son PosicionOcupada, para cuando se quiera realizar un movimiento sobre una posición con 2 o más fichas contrarias, PrimerCuadranteIncompleto, para cuando se quiera sacar una ficha del tablero sin tener todas las fichas restantes en home, también me dí cuenta de que primer cuadrante es más bien incorrecto ya que sería el último cuadrante del jugador que saca la ficha, es algo que cambiaré si tengo tiempo ya que no me parece un error catastrófico.
+Las primeras excepciones son las que pertenecen al tablero, y son:
+PosicionOcupada: para cuando se quiera realizar un movimiento sobre una posición con 2 o más fichas contrarias,
+PrimerCuadranteIncompleto: para cuando se quiera sacar una ficha del tablero sin tener todas las fichas restantes en home, también me dí cuenta de que primer cuadrante es más bien incorrecto ya que sería el último cuadrante del jugador que saca la ficha, es algo que cambiaré si tengo tiempo ya que no me parece un error catastrófico.
+PosicionVaciaException: para cuando en la posicion que se le pasa a mover no se encuentra ninguna ficha.
+MovimientoNoPosible: para cuando se intente sacar una ficha del tablero mientras se encuentran otras fichas detrás que se deberían mover primero
 
 Testing y covertura
 En todas las clases se viene testeando el 100% del código ya que es algo que me deja más seguro y se me ha generado la costumbre de ir testeando el código a medida que lo voy haciendo.
