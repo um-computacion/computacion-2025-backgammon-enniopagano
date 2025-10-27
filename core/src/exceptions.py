@@ -6,3 +6,6 @@ class PrimerCuadranteIncompletoException(Exception):
 
 class PosicionVaciaException(Exception):
     pass
+
+class MovimientoNoPosibleException(Exception):
+    pass
