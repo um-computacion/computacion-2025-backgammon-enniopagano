@@ -5,11 +5,19 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2025-10-27
+
+### Added
+
+- Clase de Estados (EstadoJuego)
+- Método clase backgammon (getters)
+
 ## [0.4.1] - 2025-10-26
 
 ### Added
 
 - Método clase board (movimiento_posible)
+- Excepción (MovimientoNoPosible)
 
 ## [0.4.0] - 2025-10-25
 
