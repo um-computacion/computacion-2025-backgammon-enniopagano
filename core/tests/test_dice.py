@@ -44,6 +44,11 @@ class TestDice(unittest.TestCase):
         self.assertTrue(randint_patched.called)
         self.assertEqual(randint_patched.call_count, 2)
 
+    def test_set_valores(self):
+        """Testea que los valores se definan correctamente"""
+        self.dice.set_valores([1, 6])
+        self.assertEqual(self.dice.__valores__, [1, 6])
+
     def test_getter_valores(self):
         """Testea que el getter de valores devuelva el atributo correcto"""
         self.assertEqual(self.dice.valores, self.dice.__valores__)
