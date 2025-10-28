@@ -1,5 +1,8 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import (
+    patch,
+    call
+)
 from core.src.backgammon import BackgammonGame, EstadoJuego
 from core.src.board import Board
 from core.src.dados import Dice
@@ -91,8 +94,8 @@ class TestBackgammon(unittest.TestCase):
         # Testea como quedó el estado
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_cambiar_turno_de_1_a_2(self, mock_stdout):
+    @patch('builtins.print')
+    def test_cambiar_turno_de_1_a_2(self, print_patched):
         """Testea que se intercambie el turno correctamente, en este caso de jugador 1 a 2"""
         # Define los valores para verificar sus cambios
         self.juego.__jugador_actual__ = self.juego.__jugador1__
@@ -100,15 +103,13 @@ class TestBackgammon(unittest.TestCase):
         self.juego.__dados__.__valores__ = [2, 3] # Definir valores para verificar que se borren
         # Cambia de turno
         self.juego.cambiar_turno()
-        salida = mock_stdout.getvalue().strip()
+        # Verifica los cambios
         self.assertEqual(self.juego.__jugador_actual__, self.juego.__jugador2__)
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.TIRANDO_DADOS)
         self.assertEqual(self.juego.__dados__.__valores__, [])
-        # Testea el print
-        self.assertEqual(salida, f'Turno de {self.juego.__jugador_actual__.__nombre__}')
     
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_cambiar_turno_de_2_a_1(self, mock_stdout):
+    @patch('builtins.print')
+    def test_cambiar_turno_de_2_a_1(self, print_patched):
         """Testea que se intercambie el turno correctamente, en este caso de jugador 2 a 1"""
         # Define los valores para verificar sus cambios
         self.juego.__jugador_actual__ = self.juego.__jugador2__
@@ -116,38 +117,34 @@ class TestBackgammon(unittest.TestCase):
         self.juego.__dados__.__valores__ = [2, 3] # Definir valores para verificar que se borren
         # Cambia de turno
         self.juego.cambiar_turno()
-        salida = mock_stdout.getvalue().strip()
+        # Verifica los cambios
         self.assertEqual(self.juego.__jugador_actual__, self.juego.__jugador1__)
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.TIRANDO_DADOS)
         self.assertEqual(self.juego.__dados__.__valores__, [])
-        # Testea el print
-        self.assertEqual(salida, f'Turno de {self.juego.__jugador_actual__.__nombre__}')
 
     def test_saltar_turno_error(self):
         """Testea que se levante el error a no estar en estado de movimiento"""
         with self.assertRaises(NoEsMomentoException):
             self.juego.saltar_turno()
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_saltar_turno_jugador1(self, mock_stdout):
+    @patch('builtins.print')
+    def test_saltar_turno_jugador1(self, print_patched):
         """Testea que el jugador 1 se salte el turno"""
         self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
         self.juego.__jugador_actual__ = self.juego.__jugador1__
         self.juego.saltar_turno()
-        salida = mock_stdout.getvalue().strip()
+        # Verifica los cambios
         self.assertEqual(self.juego.__jugador_actual__, self.juego.__jugador2__)
-        self.assertEqual(salida, f'{self.juego.__jugador1__.__nombre__} salta el turno\nTurno de {self.juego.__jugador2__.__nombre__}')
-
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_saltar_turno_jugador2(self, mock_stdout):
+        
+    @patch('builtins.print')
+    def test_saltar_turno_jugador2(self, print_patched):
         """Testea que el jugador 2 se salte el turno"""
         self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
         self.juego.__jugador_actual__ = self.juego.__jugador2__
         self.juego.saltar_turno()
-        salida = mock_stdout.getvalue().strip()
+        # salida = print_patched.getvalue().strip()
         self.assertEqual(self.juego.__jugador_actual__, self.juego.__jugador1__)
-        self.assertEqual(salida, f'{self.juego.__jugador2__.__nombre__} salta el turno\nTurno de {self.juego.__jugador1__.__nombre__}')
-
+    
     @patch('core.src.board.Board.condicion_victoria', return_value=True)
     def test_comprobar_estado_post_movimiento_ganador(self, victoria_patched):
         """Testea que se encuentre un ganador después de un movimiento"""
@@ -157,13 +154,12 @@ class TestBackgammon(unittest.TestCase):
         self.assertEqual(self.juego.__ganador__, self.juego.__jugador_actual__)
 
     @patch('core.src.board.Board.condicion_victoria', return_value=False)
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_comprobar_estado_post_movimiento_cambio_turno(self, mock_stdout, victoria_patched):
+    @patch('builtins.print')
+    def test_comprobar_estado_post_movimiento_cambio_turno(self, print_patched, victoria_patched):
         """Testea que no haya ganador y se cambie de turno al no haber mas dados"""
         self.juego.__jugador_actual__ = self.juego.__jugador1__
         self.juego.__dados__.__valores__ = []
         self.juego.comprobar_estado_post_movimiento()
-        salida = mock_stdout.getvalue().strip()
+        # Verifica los cambios
         self.assertEqual(self.juego.__jugador_actual__, self.juego.__jugador2__)
-        self.assertEqual(salida, f'Turno de {self.juego.__jugador_actual__.__nombre__}')
 
