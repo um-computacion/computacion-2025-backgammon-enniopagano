@@ -32,6 +32,10 @@ class Dice:
 
         return self.__valores__.copy()
 
+    def set_valores(self, valores: List[int]) -> None:
+        """Establece manualmente los valores de los dados para la tirada inicial"""
+        self.__valores__ = valores
+
     @property
     def valores(self) -> List:
         """Devuelve una copia de los valores actuales"""
