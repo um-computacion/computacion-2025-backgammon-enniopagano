@@ -5,7 +5,7 @@ Name                     Stmts   Miss  Cover   Missing
 ------------------------------------------------------
 core/src/__init__.py         0      0   100%
 core/src/backgammon.py      75      0   100%
-core/src/board.py          115      1    99%   185
+core/src/board.py          115      1    99%   192
 core/src/dados.py           31      0   100%
 core/src/exceptions.py      12      0   100%
 core/src/jugador.py         10      0   100%
@@ -24,44 +24,23 @@ core/src/dados.py:68:8: R1705: Unnecessary "else" after "return", remove the "el
 ************* Module core.src.jugador
 core/src/jugador.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 ************* Module core.src.board
-core/src/board.py:2:29: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:3:39: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:40:0: C0301: Line too long (101/100) (line-too-long)
-core/src/board.py:64:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:103:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:106:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:112:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:115:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:133:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:139:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:142:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:149:0: C0301: Line too long (117/100) (line-too-long)
-core/src/board.py:173:0: C0301: Line too long (147/100) (line-too-long)
-core/src/board.py:177:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:185:0: C0301: Line too long (103/100) (line-too-long)
-core/src/board.py:188:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:190:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:194:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:198:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:201:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:232:0: C0301: Line too long (131/100) (line-too-long)
-core/src/board.py:242:0: C0301: Line too long (101/100) (line-too-long)
-core/src/board.py:373:0: C0303: Trailing whitespace (trailing-whitespace)
-core/src/board.py:374:0: C0304: Final newline missing (missing-final-newline)
-core/src/board.py:374:0: C0325: Unnecessary parens after 'return' keyword (superfluous-parens)
+core/src/board.py:192:0: C0301: Line too long (103/100) (line-too-long)
+core/src/board.py:251:0: C0301: Line too long (101/100) (line-too-long)
+core/src/board.py:383:0: C0304: Final newline missing (missing-final-newline)
+core/src/board.py:383:0: C0325: Unnecessary parens after 'return' keyword (superfluous-parens)
 core/src/board.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-core/src/board.py:181:16: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:149:87: W0613: Unused argument 'es_desde_barra' (unused-argument)
-core/src/board.py:258:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
-core/src/board.py:258:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:278:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
-core/src/board.py:278:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:283:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
-core/src/board.py:283:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:311:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
-core/src/board.py:314:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
-core/src/board.py:314:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:346:12: W0612: Unused variable 't' (unused-variable)
+core/src/board.py:188:16: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+core/src/board.py:154:8: W0613: Unused argument 'es_desde_barra' (unused-argument)
+core/src/board.py:267:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+core/src/board.py:267:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+core/src/board.py:287:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+core/src/board.py:287:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+core/src/board.py:292:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+core/src/board.py:292:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+core/src/board.py:320:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
+core/src/board.py:323:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
+core/src/board.py:323:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+core/src/board.py:355:12: W0612: Unused variable 't' (unused-variable)
 core/src/board.py:7:0: C0411: standard import "typing.List" should be placed before first party import "core.src.exceptions.PosicionOcupadaException"  (wrong-import-order)
 ************* Module core.src.exceptions
 core/src/exceptions.py:17:0: C0304: Final newline missing (missing-final-newline)
@@ -147,23 +126,16 @@ core/tests/test_dice.py:80:4: C0116: Missing function or method docstring (missi
 core/tests/test_dice.py:81:60: W0612: Unused variable 'randint_patched' (unused-variable)
 core/tests/test_dice.py:82:12: W0612: Unused variable 'tirada' (unused-variable)
 ************* Module core.tests.test_board
-core/tests/test_board.py:3:0: C0301: Line too long (116/100) (line-too-long)
-core/tests/test_board.py:45:0: C0301: Line too long (122/100) (line-too-long)
-core/tests/test_board.py:63:0: C0301: Line too long (102/100) (line-too-long)
-core/tests/test_board.py:73:0: C0301: Line too long (121/100) (line-too-long)
-core/tests/test_board.py:91:0: C0301: Line too long (102/100) (line-too-long)
-core/tests/test_board.py:145:0: C0301: Line too long (116/100) (line-too-long)
-core/tests/test_board.py:173:0: C0301: Line too long (115/100) (line-too-long)
-core/tests/test_board.py:261:0: C0305: Trailing newlines (trailing-newlines)
+core/tests/test_board.py:279:0: C0305: Trailing newlines (trailing-newlines)
 core/tests/test_board.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-core/tests/test_board.py:5:0: C0115: Missing class docstring (missing-class-docstring)
-core/tests/test_board.py:149:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
-core/tests/test_board.py:155:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
-core/tests/test_board.py:177:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
-core/tests/test_board.py:183:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+core/tests/test_board.py:9:0: C0115: Missing class docstring (missing-class-docstring)
+core/tests/test_board.py:164:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+core/tests/test_board.py:170:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+core/tests/test_board.py:195:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+core/tests/test_board.py:201:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
 
 -----------------------------------
-Your code has been rated at 7.60/10
+Your code has been rated at 8.09/10
 
 
 ```
