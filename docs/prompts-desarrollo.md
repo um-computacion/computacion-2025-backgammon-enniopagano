@@ -8,7 +8,7 @@ No hubo instrucciones del sistema
 Resultado de la IA:
 
 
-La parte en **negrita** o encerrado entre asteriscos dobles **, siempre será la salida que está presente en el código
+La parte en **negrita** o encerrado entre asteriscos dobles **, será la salida que está presente en el código
 La salida está en el codigo con modificaciones 
 
 
@@ -126,10 +126,10 @@ La salida está en el codigo con modificaciones
         # Esta función se implementará más adelante
         pass
 
-# Ejemplo de uso
-if __name__ == "__main__":
-    board = BackgammonBoard()
-    board.display_board()
+    # Ejemplo de uso
+    if __name__ == "__main__":
+        board = BackgammonBoard()
+        board.display_board()
 
 REFERNCIA DE ARCHIVOS: core/src/board.py
 
@@ -399,3 +399,19 @@ Resultado de la IA:
         
         # Añadir ficha al destino
         pos_destino.insert(0, turno)
+
+
+## Gemini 2.5 Pro - 27/10/2025
+
+### Prompt:
+Cómo sería un ejemplo sencillo de la máquina de estados que mencionaste que funcione en mí proyecto?
+
+Resultado de la IA:
+
+La salida está en el código sin modificaciones
+
+class EstadoJuego(Enum):
+    """Define los estados posibles del juego para la máquina de estados."""
+    TIRANDO_DADOS = auto()
+    MOVIENDO = auto()
+    FIN_JUEGO = auto()
