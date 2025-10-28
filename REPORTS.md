@@ -5,12 +5,12 @@ Name                     Stmts   Miss  Cover   Missing
 ------------------------------------------------------
 core/src/__init__.py         0      0   100%
 core/src/backgammon.py      75      0   100%
-core/src/board.py          110      1    99%   185
+core/src/board.py          115      1    99%   185
 core/src/dados.py           31      0   100%
 core/src/exceptions.py      12      0   100%
 core/src/jugador.py         10      0   100%
 ------------------------------------------------------
-TOTAL                      238      1    99%
+TOTAL                      243      1    99%
 
 ```
 ## Pylint Report
@@ -46,6 +46,9 @@ core/src/board.py:198:0: C0303: Trailing whitespace (trailing-whitespace)
 core/src/board.py:201:0: C0303: Trailing whitespace (trailing-whitespace)
 core/src/board.py:232:0: C0301: Line too long (131/100) (line-too-long)
 core/src/board.py:242:0: C0301: Line too long (101/100) (line-too-long)
+core/src/board.py:373:0: C0303: Trailing whitespace (trailing-whitespace)
+core/src/board.py:374:0: C0304: Final newline missing (missing-final-newline)
+core/src/board.py:374:0: C0325: Unnecessary parens after 'return' keyword (superfluous-parens)
 core/src/board.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 core/src/board.py:181:16: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
 core/src/board.py:149:87: W0613: Unused argument 'es_desde_barra' (unused-argument)
@@ -58,7 +61,7 @@ core/src/board.py:283:12: R1705: Unnecessary "else" after "return", remove the "
 core/src/board.py:311:8: R1720: Unnecessary "else" after "raise", remove the "else" and de-indent the code inside it (no-else-raise)
 core/src/board.py:314:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
 core/src/board.py:314:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:343:12: W0612: Unused variable 't' (unused-variable)
+core/src/board.py:346:12: W0612: Unused variable 't' (unused-variable)
 core/src/board.py:7:0: C0411: standard import "typing.List" should be placed before first party import "core.src.exceptions.PosicionOcupadaException"  (wrong-import-order)
 ************* Module core.src.exceptions
 core/src/exceptions.py:17:0: C0304: Final newline missing (missing-final-newline)
@@ -151,7 +154,7 @@ core/tests/test_board.py:73:0: C0301: Line too long (121/100) (line-too-long)
 core/tests/test_board.py:91:0: C0301: Line too long (102/100) (line-too-long)
 core/tests/test_board.py:145:0: C0301: Line too long (116/100) (line-too-long)
 core/tests/test_board.py:173:0: C0301: Line too long (115/100) (line-too-long)
-core/tests/test_board.py:251:0: C0305: Trailing newlines (trailing-newlines)
+core/tests/test_board.py:261:0: C0305: Trailing newlines (trailing-newlines)
 core/tests/test_board.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 core/tests/test_board.py:5:0: C0115: Missing class docstring (missing-class-docstring)
 core/tests/test_board.py:149:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
@@ -160,7 +163,7 @@ core/tests/test_board.py:177:8: C0200: Consider using enumerate instead of itera
 core/tests/test_board.py:183:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
 
 -----------------------------------
-Your code has been rated at 7.61/10
+Your code has been rated at 7.60/10
 
 
 ```
