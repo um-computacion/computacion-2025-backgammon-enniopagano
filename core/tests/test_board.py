@@ -1,6 +1,10 @@
 import unittest
 from core.src.board import Board
-from core.src.exceptions import PosicionOcupadaException, PrimerCuadranteIncompletoException, PosicionVaciaException
+from core.src.exceptions import (
+    PosicionOcupadaException,
+    PrimerCuadranteIncompletoException,
+    PosicionVaciaException
+)
 
 class TestBoard(unittest.TestCase):
 
@@ -42,7 +46,10 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board.fuera, self.board.__fuera__)
 
     def test_mover_blancas(self):
-        """Testea que siga la correcta lógica de movimiento, es decir, todos los caminos posibles de las fichas blancas"""
+        """
+        Testea que siga la correcta lógica de movimiento, es decir,
+        todos los caminos posibles de las fichas blancas
+        """
         # Test de movimiento a una posición vacía
         self.board.mover(1, 4, 'B')
         self.assertEqual(self.board.__posiciones__[0], ['B'])
@@ -60,7 +67,8 @@ class TestBoard(unittest.TestCase):
         # Test de movimiento a una posicion con mas de una ficha contraria
         with self.assertRaises(PosicionOcupadaException):
             self.board.mover(4, 4, 'B')
-        # Test queriendo sacar una ficha del tablero sin tener todas las fichas en el primer cuadrante
+        # Test queriendo sacar una ficha del tablero
+        # sin tener todas las fichas en el primer cuadrante
         with self.assertRaises(PrimerCuadranteIncompletoException):
             self.board.mover(19, 6, 'B')
         # Test sacando una ficha del tablero
@@ -70,7 +78,10 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board.__fuera__[0], 1)
 
     def test_mover_negras(self):
-        """Testea que siga la correcta lógica de movimiento, es decir, todos los caminos posibles de las fichas negras"""
+        """
+        Testea que siga la correcta lógica de movimiento, es decir,
+        todos los caminos posibles de las fichas negras
+        """
         # Test de movimiento a una posición vacía
         self.board.mover(24, 4, 'N')
         self.assertEqual(self.board.__posiciones__[23], ['N'])
@@ -88,7 +99,8 @@ class TestBoard(unittest.TestCase):
         # Test de movimiento a una posicion con mas de una ficha contraria
         with self.assertRaises(PosicionOcupadaException):
             self.board.mover(21, 4, 'N')
-        # Test queriendo sacar una ficha del tablero sin tener todas las fichas en el primer cuadrante
+        # Test queriendo sacar una ficha del tablero
+        # sin tener todas las fichas en el primer cuadrante
         with self.assertRaises(PrimerCuadranteIncompletoException):
             self.board.mover(6, 6, 'N')
         # Test sacando una ficha del tablero
@@ -142,7 +154,10 @@ class TestBoard(unittest.TestCase):
 
 
     def test_primer_cuadrante_blancas(self):
-        """Testea si todas las fichas de un jugador estan en su primer cuadrante, en este caso las fichas blancas"""
+        """
+        Testea si todas las fichas de un jugador estan en su primer cuadrante,
+        en este caso las fichas blancas
+        """
         # Test con el tablero inicial
         self.assertEqual(self.board.primer_cuadrante('B'), False)
         # Vacia el tablero
@@ -170,7 +185,10 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(self.board.primer_cuadrante('B'), True)
 
     def test_primer_cuadrante_negras(self):
-        """Testea si todas las fichas de un jugador estan en su primer cuadrante, en este caso las fichas negras"""
+        """
+        Testea si todas las fichas de un jugador estan en su primer cuadrante,
+        en este caso las fichas negras
+        """
         # Test con el tablero inicial
         self.assertEqual(self.board.primer_cuadrante('N'), False)
         # Vacia el tablero
