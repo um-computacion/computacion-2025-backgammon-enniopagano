@@ -1,6 +1,6 @@
 from core.src.exceptions import (
-    PosicionOcupadaException, 
-    PrimerCuadranteIncompletoException, 
+    PosicionOcupadaException,
+    PrimerCuadranteIncompletoException,
     PosicionVaciaException,
     MovimientoNoPosibleException
 )
@@ -20,7 +20,7 @@ class Board:
         La barra de los jugadores, indice 0 para Blancas e indice 1 para Negras (default [0, 0])
     fuera : List[int, int]
         Fichas fuera del tablero, indice 0 para Blancas e indice 1 para Negras (default [0, 0])
-    
+
 
     Métodos
     -------
@@ -37,7 +37,8 @@ class Board:
     ficha_sacada(turno: str)
         Suma una ficha al contador de fichas fuera del jugador
     primer_cuadrante(turno: str)
-        Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él
+        Verifica el primer cuadrante de un jugador y 
+        determina si todas sus fichas se encuetran en él
     condicion_victoria(turno: str)
         Verifica si algún jugador ganó la partida contando sus fichas fuera del tablero
     """
@@ -61,7 +62,7 @@ class Board:
         self.__posiciones__[11] = ['B'] * 5     # Posicion 12: 5 fichas
         self.__posiciones__[16] = ['B'] * 3     # Posicion 17: 3 fichas
         self.__posiciones__[18] = ['B'] * 5     # Posicion 19: 5 fichas
-        
+
         # Jugador 2 ('N'egras) - posiciones espejo
         self.__posiciones__[23] = ['N', 'N']     # Posicion 24: 2 fichas
         self.__posiciones__[12] = ['N'] * 5     # Posicion 13: 5 fichas
@@ -84,7 +85,7 @@ class Board:
         return self.__fuera__
 
     def mover(self, posicion: int, dado: int, turno: str) -> None:
-        """Mueve una ficha desde una posicion del tablero a otra/fuera del tablero  
+        """Mueve una ficha desde una posicion del tablero a otra/fuera del tablero
 
         Parametros
         ----------
@@ -100,25 +101,25 @@ class Board:
         -----------
         ejecutar_movimiento: Lógica común para mover/poner fichas
         """
-        
+
         pos_origen = self.__posiciones__[posicion - 1]
         indice_posicion = posicion - 1
-        
+
         # Calcular destino
         if turno == 'B':
             indice_destino = (indice_posicion) + dado
         else:
             indice_destino = (indice_posicion) - dado
-        
+
         # Ejecutar el movimiento común
         self._ejecutar_movimiento(indice_destino, turno, indice_posicion, es_desde_barra=False)
-        
+
         # Quitar ficha del origen
         pos_origen.pop(0)
 
     def poner_ficha(self, dado: int, turno: str) -> None:
         """Pone una ficha desde la barra al tablero
-        
+
         Parametros
         ----------
         dado: int
@@ -130,25 +131,30 @@ class Board:
         -----------
         ejecutar_movimiento: Lógica común para mover/poner fichas
         """
-        
+
         # Calcular posición destino
         if turno == 'B':
             indice_destino = 24 - dado  # Entran desde el lado negro
         else:
             indice_destino = dado - 1    # Entran desde el lado blanco
-        
+
         # Ejecutar el movimiento común
         self._ejecutar_movimiento(indice_destino, turno, es_desde_barra=True)
-        
+
         # Quitar ficha de la barra
         if turno == 'B':
             self.__barra__[0] -= 1
         else:
             self.__barra__[1] -= 1
 
-    def _ejecutar_movimiento(self, indice_destino: int, turno: str, indice_posicion=0, es_desde_barra=False) -> None:
+    def _ejecutar_movimiento(self,
+        indice_destino: int,
+        turno: str,
+        indice_posicion=0,
+        es_desde_barra=False
+    ) -> None:
         """Lógica común para mover/poner fichas
-        
+
         Parametros
         ----------
         indice_destino: int
@@ -167,14 +173,15 @@ class Board:
             Faltan fichas en el primer cuadrante del jugador
         PosicionOcupadaException
             En la posición destino de la ficha hay 2 o más fichas contrarias
-        
+
         Ver Tambien
         -----------
-        primer_cuadrante : Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él(ignorado las fichas fuera)
+        primer_cuadrante : Verifica el primer cuadrante de un jugador y
+            determina si todas sus fichas se encuetran en él(ignorado las fichas fuera)
         comer_ficha : Mueve una ficha contraria a la barra del otro jugador
         ficha_sacada : Suma una ficha al contador de fichas fuera del jugador
         """
-        
+
         # Caso especial: sacar ficha del tablero (bear off)
         if indice_destino >= 24 or indice_destino < 0:
             if self.primer_cuadrante(turno):
@@ -185,23 +192,23 @@ class Board:
                     raise MovimientoNoPosibleException("Debes mover fichas en las posiciones de atrás")
             else:
                 raise PrimerCuadranteIncompletoException("No puedes sacar fichas aún")
-        
+
         pos_destino = self.__posiciones__[indice_destino]
-        
+
         # Validar destino
         if len(pos_destino) >= 2 and pos_destino[0] != turno:
             raise PosicionOcupadaException("Posición bloqueada por el oponente")
-        
+
         # Comer ficha si hay una sola enemiga
         if len(pos_destino) == 1 and pos_destino[0] != turno:
             self.comer_ficha(pos_destino, turno)
-        
+
         # Añadir ficha al destino
         pos_destino.insert(0, turno)
-    
+
     def comer_ficha(self, pos_destino: List[str], turno: str) -> None:
         """Mueve una ficha contraria a la barra del otro jugador
-        
+
         Parametros
         ----------
         pos_destino: List[]
@@ -217,7 +224,7 @@ class Board:
 
     def ficha_sacada(self, turno: str) -> None:
         """Suma una ficha al contador de fichas fuera del jugador
-        
+
         Parametros
         ----------
         turno: str
@@ -229,8 +236,10 @@ class Board:
             self.__fuera__[1] += 1
 
     def primer_cuadrante(self, turno: str) -> bool:
-        """Verifica el primer cuadrante de un jugador y determina si todas sus fichas se encuetran en él(ignorado las fichas fuera)
-        
+        """
+        Verifica el primer cuadrante de un jugador y
+        determina si todas sus fichas se encuetran en él(ignorado las fichas fuera).
+
         Parametros
         ----------
         turno: str
@@ -262,7 +271,7 @@ class Board:
 
     def condicion_victoria(self, turno: str) -> bool:
         """Verifica si algún jugador ganó la partida contando sus fichas fuera del tablero
-        
+
         Parametros
         ----------
         turno: str
@@ -288,7 +297,7 @@ class Board:
     def get_ficha(self, posicion: int, turno: str) -> bool:
         """
         Verifica si hay una ficha del respectivo turno en la posicion dada
-        
+
         Parametros
         ----------
         posicion: int
@@ -300,7 +309,7 @@ class Board:
         -------
         bool
             'True' si hay una ficha del respectivo turno y 'False' si es del turno contrario
-        
+
         Raises
         ------
         PosicionVaciaException
@@ -318,7 +327,7 @@ class Board:
 
     def movimiento_posible(self, turno: str, indice_posicion: int) -> bool:
         """Verifica si un movimiento desde el ultimo cuadrante a fuera del tablero es posible
-        
+
         Parametros
         ----------
         turno: str
@@ -352,7 +361,7 @@ class Board:
 
     def barra_vacia(self, turno: str) -> bool:
         """Verifica si hay fichas en la barra del jugador
-        
+
         Parametros
         ----------
         turno: str
@@ -370,5 +379,5 @@ class Board:
             barra = self.__barra__[0]
         else:
             barra = self.__barra__[1]
-        
+
         return (barra == 0)
