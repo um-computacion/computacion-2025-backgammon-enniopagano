@@ -33,10 +33,14 @@ class BackgammonGame:
         El jugador 1 del juego
     __jugador2__ : Jugador
         El jugador 2 del juego
-    __turno__ : str
-        Turno del jugador actual 'B' o 'N'
-    __juego_terminado__ : bool
-        Si el juego terminó o no
+    __jugador_actual__ : Jugador
+        Jugador que está jugando
+    __ganador__ : Jugador
+        Jugador ganador del juego cuando lo haya (default=None)
+    __estado_juego__ : EstadoJuego
+        Estado del juego (Tirando, Moviendo o Terminado)
+    __primer_turno__ : bool
+        Flag que funciona para identificar la tirada inicial
     """
     def __init__(self, jugador1: str = 'Jugador 1', jugador2: str = 'Jugador 2'):
         self.__tablero__ = Board()
@@ -44,7 +48,7 @@ class BackgammonGame:
 
         self.__jugador1__ = Jugador(jugador1, 'B')
         self.__jugador2__ = Jugador(jugador2, 'N')
-        self.__turno__ = None
+        self.__jugador_actual__ = None
         self.__ganador__ = None
         self.__estado_juego__ = EstadoJuego.TIRANDO_DADOS
         self.__primer_turno__ = True
@@ -53,7 +57,7 @@ class BackgammonGame:
     @property
     def turno_actual(self) -> Jugador:
         """Devuelve el jugador que le toca jugar"""
-        return self.__turno__
+        return self.__jugador_actual__
 
     @property
     def estado_actual(self) -> EstadoJuego:
@@ -96,9 +100,9 @@ class BackgammonGame:
             if dado_j1 == dado_j2:
                 raise TiradaInicialEmpateException('Empate, hay que tirar de nuevo')
             elif dado_j1 > dado_j2:
-                self.__turno__ = self.__jugador1__
+                self.__jugador_actual__ = self.__jugador1__
             else:
-                self.__turno__ = self.__jugador2__
+                self.__jugador_actual__ = self.__jugador2__
 
             self.__dados__.set_valores([dado_j1, dado_j2])
             self.__primer_turno__ = False
@@ -107,7 +111,7 @@ class BackgammonGame:
             return {
                 'dado_j1': dado_j1,
                 'dado_j2': dado_j2,
-                'ganador': self.__turno__.__nombre__
+                'ganador': self.__jugador_actual__.__nombre__
             }
         else:
             self.__dados__.tirar()
@@ -115,6 +119,42 @@ class BackgammonGame:
             return {
                 'dados': self.__dados__.valores
             }
+
+    def cambiar_turno(self) -> None:
+        """Pasa el turno al siguiente jugador y resetea los dados"""
+        if self.__jugador_actual__ == self.__jugador1__:
+            self.__jugador_actual__ = self.__jugador2__
+        else:
+            self.__jugador_actual__ = self.__jugador1__
+
+        self.__estado_juego__ = EstadoJuego.TIRANDO_DADOS
+        self.__dados__.resetear()
+        print(f'Turno de {self.__jugador_actual__.__nombre__}')
+
+    def saltar_turno(self) -> None:
+        """Permite al jugador saltar el turno si no le quedan movimientos válidos (Usado por el controlador)
+        
+        Raises
+        ------
+        NoEsMomentoException
+            El estado del juego no es moviendo
+        """
+        if self.__estado_juego__ != EstadoJuego.MOVIENDO:
+            raise NoEsMomentoException('No puedes saltar turno si no estás moviendo fichas')
+        print(f'{self.__jugador_actual__.__nombre__} salta el turno')
+        self.cambiar_turno()
+
+    def comprobar_estado_post_movimiento(self) -> None:
+        """Se llama después de cada movimiento para ver si el juego ha terminado o si se han agotado los dados"""
+        turno_color = self.__jugador_actual__.__color__
+
+        if self.__tablero__.condicion_victoria(turno_color):
+            self.__estado_juego__ = EstadoJuego.FIN_JUEGO
+            self.__ganador__ = self.__jugador_actual__
+            return
+
+        if not self.__dados__.dados_disponibles():
+            self.cambiar_turno()
 
             
 

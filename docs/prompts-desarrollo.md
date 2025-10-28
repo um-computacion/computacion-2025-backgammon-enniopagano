@@ -401,7 +401,7 @@ Resultado de la IA:
         pos_destino.insert(0, turno)
 
 
-## Gemini 2.5 Pro - 27/10/2025
+## ChatGPT GPT-5 - 27/10/2025
 
 ### Prompt:
 Cómo sería un ejemplo sencillo de la máquina de estados que mencionaste que funcione en mí proyecto?
@@ -415,3 +415,30 @@ class EstadoJuego(Enum):
     TIRANDO_DADOS = auto()
     MOVIENDO = auto()
     FIN_JUEGO = auto()
+
+## Gemini 2.5 Pro - 27/10/2025
+
+### Prompt:
+Cómo se testea un print, hay forma de hacerlo sin que se imprima en la consola?
+
+Resultado de la IA:
+
+Funcion de Ejemplo:
+    def saludar(nombre):
+        print(f"Hola, {nombre}!")
+
+Test
+    import unittest
+    from unittest.mock import patch
+    from io import StringIO
+    from core.src.modulo import saludar  # por ejemplo
+
+    class TestSaludar(unittest.TestCase):
+        @patch('sys.stdout', new_callable=StringIO)
+        def test_saludar(self, mock_stdout):
+            saludar("Ennio")
+            salida = mock_stdout.getvalue().strip()
+            self.assertEqual(salida, "Hola, Ennio!")
+
+    if __name__ == '__main__':
+        unittest.main()

@@ -5,6 +5,14 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.3] - 2025-10-28
+
+### Added
+
+- Método clase backgammon (cambiar_turno)
+- Método clase backgammon (saltar_turno)
+- Método clase backgammon (comprobar_estado_post_movimiento)
+
 ## [0.4.2] - 2025-10-27
 
 ### Added
