@@ -326,7 +326,10 @@ class Board:
         indice_posicion: int
             La posición de la ficha que se va a mover
 
-        
+        Retorna
+        -------
+        bool
+            'True' si el movimiento es posible y 'False' si no lo es
         """
 
         if turno == 'B':
@@ -346,3 +349,26 @@ class Board:
             contador += sumador
 
         return True
+
+    def barra_vacia(self, turno: str) -> bool:
+        """Verifica si hay fichas en la barra del jugador
+        
+        Parametros
+        ----------
+        turno: str
+            Puede ser 'B' o 'N' dependiendo del turno actual
+
+        Retorna
+        -------
+        Retorna
+        -------
+        bool
+            'True' si no hay fichas en la barra y 'False' si hay
+        """
+
+        if turno == 'B':
+            barra = self.__barra__[0]
+        else:
+            barra = self.__barra__[1]
+        
+        return (barra == 0)

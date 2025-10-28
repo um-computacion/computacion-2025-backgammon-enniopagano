@@ -246,6 +246,16 @@ class TestBoard(unittest.TestCase):
         self.board.__posiciones__[5] = []
         self.assertEqual(self.board.movimiento_posible('N', 2), True)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_barra_vacia_blancas(self):
+        """Testea que la barra del jugador blanco este vacia"""
+        self.assertEqual(self.board.barra_vacia('B'), True)
+        self.board.__barra__[0] = 1
+        self.assertEqual(self.board.barra_vacia('B'), False)
+
+    def test_barra_vacia_negras(self):
+        """Testea que la barra del jugador negro este vacia"""
+        self.assertEqual(self.board.barra_vacia('N'), True)
+        self.board.__barra__[1] = 1
+        self.assertEqual(self.board.barra_vacia('N'), False)
+
 
