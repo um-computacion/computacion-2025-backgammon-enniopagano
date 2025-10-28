@@ -11,6 +11,8 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 - Clase de Estados (EstadoJuego)
 - Método clase backgammon (getters)
+- Método clase backgammon (lanzar_dados)
+- Método clase dados (set_valores)
 
 ## [0.4.1] - 2025-10-26
 

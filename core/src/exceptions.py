@@ -9,3 +9,9 @@ class PosicionVaciaException(Exception):
 
 class MovimientoNoPosibleException(Exception):
     pass
+
+class TiradaInicialEmpateException(Exception):
+    pass
+
+class NoEsMomentoException(Exception):
+    pass

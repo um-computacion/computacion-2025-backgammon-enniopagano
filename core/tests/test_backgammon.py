@@ -4,6 +4,14 @@ from core.src.backgammon import BackgammonGame, EstadoJuego
 from core.src.board import Board
 from core.src.dados import Dice
 from core.src.jugador import Jugador
+from core.src.exceptions import (
+    PosicionOcupadaException, 
+    PrimerCuadranteIncompletoException, 
+    PosicionVaciaException,
+    MovimientoNoPosibleException,
+    TiradaInicialEmpateException,
+    NoEsMomentoException
+)
 
 class TestBackgammon(unittest.TestCase):
 
@@ -39,3 +47,41 @@ class TestBackgammon(unittest.TestCase):
 
     def test_getter_ganador(self):
         self.assertEqual(self.juego.ganador, self.juego.__ganador__)
+
+    def test_lanzar_dados_momento_incorrecto(self):
+        self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
+        with self.assertRaises(NoEsMomentoException):
+            self.juego.lanzar_dados()
+
+    @patch('random.randint', side_effect=[4, 4])
+    def test_lanzar_dados_tirada_inicial_iguales(self, tirada_patched):
+        with self.assertRaises(TiradaInicialEmpateException):
+            self.juego.lanzar_dados()
+
+    @patch('random.randint', side_effect=[5, 4])
+    def test_lanzar_dados_tirada_inicial_jugador1_gana(self, tirada_patched):
+        # Testea lo que retorna al controlador
+        self.assertEqual(self.juego.lanzar_dados(), {'dado_j1': 5, 'dado_j2': 4, 'ganador': self.juego.__turno__.__nombre__})
+        # Testea como quedaron los valores afectados
+        self.assertEqual(self.juego.__turno__, self.juego.__jugador1__)
+        self.assertEqual(self.juego.__dados__.__valores__, [5, 4])
+        self.assertEqual(self.juego.__primer_turno__, False)
+        self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
+        
+    @patch('random.randint', side_effect=[1, 4])
+    def test_lanzar_dados_tirada_inicial_jugador2_gana(self, tirada_patched):
+        # Testea lo que retorna al controlador
+        self.assertEqual(self.juego.lanzar_dados(), {'dado_j1': 1, 'dado_j2': 4, 'ganador': self.juego.__turno__.__nombre__})
+        # Testea como quedaron los valores afectados
+        self.assertEqual(self.juego.__turno__, self.juego.__jugador2__)
+        self.assertEqual(self.juego.__dados__.__valores__, [1, 4])
+        self.assertEqual(self.juego.__primer_turno__, False)
+        self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
+
+    @patch('random.randint', side_effect=[1, 4])
+    def test_lanzar_dados_normal(self, tirada_patched):
+        self.juego.__primer_turno__ = False
+        # Testea lo que retorna al controlador
+        self.assertEqual(self.juego.lanzar_dados(), {'dados': self.juego.__dados__.__valores__})
+        # Testea como quedó el estado
+        self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
