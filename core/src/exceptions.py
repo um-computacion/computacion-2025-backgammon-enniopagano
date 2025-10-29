@@ -15,3 +15,6 @@ class TiradaInicialEmpateException(Exception):
 
 class NoEsMomentoException(Exception):
     pass
+
+class FichaContrariaException(Exception):
+    pass

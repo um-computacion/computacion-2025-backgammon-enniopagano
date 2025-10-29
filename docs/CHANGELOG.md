@@ -9,6 +9,7 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ### Added
 
+- Método clase backgammon (intentar_mover_ficha)
 - Método clase backgammon (lanzar_dados)
 - Método clase backgammon (cambiar_turno)
 - Método clase backgammon (saltar_turno)
