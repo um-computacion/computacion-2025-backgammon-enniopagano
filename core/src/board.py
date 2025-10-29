@@ -37,10 +37,16 @@ class Board:
     ficha_sacada(turno: str)
         Suma una ficha al contador de fichas fuera del jugador
     primer_cuadrante(turno: str)
-        Verifica el primer cuadrante de un jugador y 
+        Verifica el primer cuadrante de un jugador y
         determina si todas sus fichas se encuetran en él
     condicion_victoria(turno: str)
         Verifica si algún jugador ganó la partida contando sus fichas fuera del tablero
+    get_ficha(posicion: int, turno: str)
+        Verifica si hay una ficha y si es del respectivo turno en la posicion dada
+    movimiento_posible(turno: str, indice_posicion: int)
+        Verifica si un movimiento desde el ultimo cuadrante a fuera del tablero es posible
+    barra_vacia(turno: str)
+        Verifica si hay fichas en la barra del jugador
     """
 
     def __init__(self):
@@ -100,10 +106,11 @@ class Board:
         Ver Tambien
         -----------
         ejecutar_movimiento: Lógica común para mover/poner fichas
+        get_ficha: Verifica si hay una ficha y si es del respectivo turno en la posicion dada
         """
 
-        pos_origen = self.__posiciones__[posicion - 1]
         indice_posicion = posicion - 1
+        self.get_ficha(indice_posicion, turno)
 
         # Calcular destino
         if turno == 'B':
@@ -115,6 +122,7 @@ class Board:
         self._ejecutar_movimiento(indice_destino, turno, indice_posicion, es_desde_barra=False)
 
         # Quitar ficha del origen
+        pos_origen = self.__posiciones__[indice_posicion]
         pos_origen.pop(0)
 
     def poner_ficha(self, dado: int, turno: str) -> None:
@@ -296,7 +304,7 @@ class Board:
 
     def get_ficha(self, posicion: int, turno: str) -> bool:
         """
-        Verifica si hay una ficha del respectivo turno en la posicion dada
+        Verifica si hay una ficha y si es del respectivo turno en la posicion dada
 
         Parametros
         ----------
@@ -316,14 +324,11 @@ class Board:
             En la posición dada no hay ninguna ficha
         """
 
-        posicion = self.__posiciones__[posicion - 1]
+        posicion = self.__posiciones__[posicion]
         if len(posicion) == 0:
             raise PosicionVaciaException
-        else:
-            if posicion[0] == turno:
-                return True
-            else:
-                return False
+
+        return posicion[0] == turno
 
     def movimiento_posible(self, turno: str, indice_posicion: int) -> bool:
         """Verifica si un movimiento desde el ultimo cuadrante a fuera del tablero es posible
