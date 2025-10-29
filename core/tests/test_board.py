@@ -45,6 +45,11 @@ class TestBoard(unittest.TestCase):
         """Testea que el getter de fuera devuelva el atributo correcto"""
         self.assertEqual(self.board.fuera, self.board.__fuera__)
 
+    def test_mover_posicion_vacia(self):
+        """Testea mover dando una posicion vacia como parametro"""
+        with self.assertRaises(PosicionVaciaException):
+            self.board.mover(2, 4, 'B')
+
     def test_mover_blancas(self):
         """
         Testea que siga la correcta lógica de movimiento, es decir,
@@ -227,21 +232,24 @@ class TestBoard(unittest.TestCase):
         self.board.__fuera__[1] = 15
         self.assertEqual(self.board.condicion_victoria('N'), True)
 
-    def test_get_ficha(self):
-        """Testea que devuelva correctamente si hay una ficha en la posicion dada"""
+    def test_get_ficha_blanca(self):
+        """Testea que devuelva correctamente si hay una ficha blanca en la posicion dada"""
         # Test con jugador blanco donde hay una ficha blanca
-        self.assertEqual(self.board.get_ficha(1, 'B'), True)
-        self.assertEqual(self.board.get_ficha(12, 'B'), True)
+        self.assertEqual(self.board.get_ficha(0, 'B'), True)
+        self.assertEqual(self.board.get_ficha(11, 'B'), True)
         # Test con jugador blanco donde hay una ficha negra
-        self.assertEqual(self.board.get_ficha(6, 'B'), False)
-        # Test con jugador negro donde hay una ficha negra
-        self.assertEqual(self.board.get_ficha(24, 'N'), True)
-        self.assertEqual(self.board.get_ficha(13, 'N'), True)
-        # Test con jugador negro donde hay una ficha blanca
-        self.assertEqual(self.board.get_ficha(19, 'N'), False)
+        self.assertEqual(self.board.get_ficha(5, 'B'), False)
         # Test con jugador blanco donde no hay ninguna ficha
         with self.assertRaises(PosicionVaciaException):
             self.board.get_ficha(2, 'B')
+
+    def test_get_ficha_negra(self):
+        """Testea que devuelva correctamente si hay una ficha negra en la posicion dada"""
+        # Test con jugador negro donde hay una ficha negra
+        self.assertEqual(self.board.get_ficha(23, 'N'), True)
+        self.assertEqual(self.board.get_ficha(12, 'N'), True)
+        # Test con jugador negro donde hay una ficha blanca
+        self.assertEqual(self.board.get_ficha(18, 'N'), False)
         # Test con jugador negro donde no hay ninguna ficha
         with self.assertRaises(PosicionVaciaException):
             self.board.get_ficha(2, 'N')

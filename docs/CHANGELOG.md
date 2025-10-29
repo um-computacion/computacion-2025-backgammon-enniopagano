@@ -9,9 +9,15 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ### Added
 
+- Método clase backgammon (lanzar_dados)
 - Método clase backgammon (cambiar_turno)
 - Método clase backgammon (saltar_turno)
 - Método clase backgammon (comprobar_estado_post_movimiento)
+
+### Changed
+
+- Ahora mover verifica si la posición está vacía
+- Get_ficha recibe el indice de la posicion
 
 ## [0.4.2] - 2025-10-27
 
