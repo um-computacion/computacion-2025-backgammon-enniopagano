@@ -120,12 +120,12 @@ class TestBoard(unittest.TestCase):
         self.board.__barra__[0] = 2
         self.board.poner_ficha(3, 'B')
         self.assertEqual(self.board.__barra__[0], 1)
-        self.assertEqual(self.board.__posiciones__[21], ['B'])
+        self.assertEqual(self.board.__posiciones__[2], ['B'])
         # Test con ficha negra
         self.board.__barra__[1] = 2
         self.board.poner_ficha(3, 'N')
         self.assertEqual(self.board.__barra__[1], 1)
-        self.assertEqual(self.board.__posiciones__[2], ['N'])
+        self.assertEqual(self.board.__posiciones__[21], ['N'])
 
     def test_comer_ficha(self):
         """Testea que la ficha en la posicion de destino pase a la barra dependiendo la ficha"""
