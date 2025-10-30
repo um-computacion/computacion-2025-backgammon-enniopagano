@@ -142,9 +142,9 @@ class Board:
 
         # Calcular posición destino
         if turno == 'B':
-            indice_destino = 24 - dado  # Entran desde el lado negro
+            indice_destino =  dado - 1 # Entran desde el lado negro
         else:
-            indice_destino = dado - 1    # Entran desde el lado blanco
+            indice_destino = 24 - dado    # Entran desde el lado blanco
 
         # Ejecutar el movimiento común
         self._ejecutar_movimiento(indice_destino, turno, es_desde_barra=True)
