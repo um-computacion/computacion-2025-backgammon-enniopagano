@@ -9,6 +9,7 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ### Added
 
+- Interfaz abstracta (IVistaJuego)
 - Método clase backgammon (intentar_poner_ficha)
 
 ### Changed
