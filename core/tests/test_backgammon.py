@@ -35,24 +35,47 @@ class TestBackgammon(unittest.TestCase):
         self.assertEqual(self.juego.__primer_turno__, True)
 
     def test_getter_turno(self):
+        """Testea que el getter del turno devuelva el atributo correcto"""
         self.juego.__jugador_actual__ = 'B'
         self.assertEqual(self.juego.turno_actual, 'B')
 
     def test_getter_estado_actual(self):
+        """Testea que el getter del estado actua devuelva el atributo correcto"""
         self.assertEqual(self.juego.estado_actual, EstadoJuego.TIRANDO_DADOS)
 
     def test_getter_dados(self):
+        """Testea que el getter de los dados devuelva el objeto correcto"""
+        self.assertEqual(isinstance(self.juego.dados, Dice), True)
+        self.assertEqual(self.juego.dados, self.juego.__dados__)
+
+    def test_getter_dados_valores(self):
+        """Testea que el getter de dados devuelva los valores correctos"""
         self.juego.__dados__.__valores__ = [2, 4]
-        self.assertEqual(self.juego.dados, [2, 4])
+        self.assertEqual(self.juego.dados_valores, [2, 4])
 
     def test_getter_tablero(self):
+        """Testea que el getter del tablero devuelva el objeto correcto"""
         self.assertEqual(isinstance(self.juego.tablero, Board), True)
         self.assertEqual(self.juego.tablero, self.juego.__tablero__)
 
     def test_getter_ganador(self):
+        """Testea que el getter del ganador devuelva el objeto correcto"""
+        self.juego.__ganador__ = self.juego.__jugador1__
+        self.assertEqual(isinstance(self.juego.ganador, Jugador), True)
         self.assertEqual(self.juego.ganador, self.juego.__ganador__)
 
+    def test_getter_jugador1(self):
+        """Testea que el getter de jugador 1 devuelva el objeto correcto"""
+        self.assertEqual(isinstance(self.juego.jugador1, Jugador), True)
+        self.assertEqual(self.juego.jugador1, self.juego.__jugador1__)
+
+    def test_getter_jugador2(self):
+        """Testea que el getter de jugador 2 devuelva el objeto correcto"""
+        self.assertEqual(isinstance(self.juego.jugador2, Jugador), True)
+        self.assertEqual(self.juego.jugador2, self.juego.__jugador2__)
+
     def test_lanzar_dados_momento_incorrecto(self):
+        """Testea cuando se llama la funcion en un estado incorrecto"""
         self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
         with self.assertRaises(NoEsMomentoException):
             self.juego.lanzar_dados()
@@ -70,7 +93,7 @@ class TestBackgammon(unittest.TestCase):
         self.assertEqual(self.juego.lanzar_dados(), {'dado_j1': 5, 'dado_j2': 4, 'ganador': self.juego.__jugador_actual__.__nombre__})
         # Testea como quedaron los valores afectados
         self.assertEqual(self.juego.__jugador_actual__, self.juego.__jugador1__)
-        self.assertEqual(self.juego.__dados__.__valores__, [5, 4])
+        self.assertEqual(self.juego.dados_valores, [5, 4])
         self.assertEqual(self.juego.__primer_turno__, False)
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
 
@@ -81,7 +104,7 @@ class TestBackgammon(unittest.TestCase):
         self.assertEqual(self.juego.lanzar_dados(), {'dado_j1': 1, 'dado_j2': 4, 'ganador': self.juego.__jugador_actual__.__nombre__})
         # Testea como quedaron los valores afectados
         self.assertEqual(self.juego.__jugador_actual__, self.juego.__jugador2__)
-        self.assertEqual(self.juego.__dados__.__valores__, [1, 4])
+        self.assertEqual(self.juego.dados_valores, [1, 4])
         self.assertEqual(self.juego.__primer_turno__, False)
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
 
@@ -90,20 +113,22 @@ class TestBackgammon(unittest.TestCase):
         """Testea una tirada normal"""
         self.juego.__primer_turno__ = False
         # Testea lo que retorna al controlador
-        self.assertEqual(self.juego.lanzar_dados(), {'dados': self.juego.__dados__.__valores__})
+        self.assertEqual(self.juego.lanzar_dados(), {'dados': self.juego.dados_valores})
         # Testea como quedó el estado
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
-
-    def test_intentar_mover_ficha_posicion_no_valida(self):
-        with self.assertRaises(ValueError):
-            self.juego.intentar_mover_ficha(-5, 3)
-            self.juego.intentar_mover_ficha(44, 3)
 
     def test_intentar_mover_ficha_estado_distinto(self):
         """Testea cuando el estado es incorrecto"""
         self.juego.__estado_juego__ = EstadoJuego.TIRANDO_DADOS
         with self.assertRaises(NoEsMomentoException):
             self.juego.intentar_mover_ficha(5, 3)
+
+    def test_intentar_mover_ficha_posicion_no_valida(self):
+        """Testea cuando se intenta mover el desde una posición inexistente"""
+        self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
+        with self.assertRaises(ValueError):
+            self.juego.intentar_mover_ficha(-5, 3)
+            self.juego.intentar_mover_ficha(44, 3)
 
     def test_intentar_mover_ficha_dado_no_disponible(self):
         """Testea cuando el dado recibido no está entre los valores disponibles"""
@@ -143,7 +168,7 @@ class TestBackgammon(unittest.TestCase):
         self.assertEqual(self.juego.tablero.__posiciones__[0], ['B']) # Origen
         self.assertEqual(self.juego.tablero.__posiciones__[3], ['B']) # Destino
         # Testea que se haya usado el dado
-        self.assertEqual(self.juego.dados, [2])
+        self.assertEqual(self.juego.dados_valores, [2])
 
     @patch('core.src.board.Board.barra_vacia', return_value=True)
     def test_intentar_mover_ficha_desde_posicion_vacia(self, barra_patched):
@@ -176,6 +201,50 @@ class TestBackgammon(unittest.TestCase):
         self.juego.__jugador_actual__ = self.juego.jugador1
         with self.assertRaises(PrimerCuadranteIncompletoException):
             self.juego.intentar_mover_ficha(19, 6)
+
+    def test_intetar_poner_ficha_estado_distinto(self):
+        """Testea cuando el estado es incorrecto"""
+        self.juego.__estado_juego__ = EstadoJuego.TIRANDO_DADOS
+        with self.assertRaises(NoEsMomentoException):
+            self.juego.intentar_poner_ficha(5)
+
+    def test_intentar_poner_ficha_dado_no_disponible(self):
+        """Testea cuando el dado recibido no está entre los valores disponibles"""
+        self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
+        self.juego.__dados__.__valores__ = [1, 6]
+        with self.assertRaises(ValueError):
+            self.juego.intentar_poner_ficha(5)
+
+    @patch('core.src.board.Board.barra_vacia', return_value=True)
+    def test_intentar_mover_ficha_con_barra_vacia(self, barra_patched):
+        """Testea cuando se quiere poner una ficha sin fichas en la barra"""
+        self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
+        self.juego.__dados__.__valores__ = [1, 6]
+        self.juego.__jugador_actual__ = self.juego.jugador1
+        with self.assertRaises(Exception):
+            self.juego.intentar_poner_ficha(6)
+
+    def test_intentar_poner_ficha_normal(self):
+        """Testea el flujo ideal de la función"""
+        self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
+        self.juego.__dados__.__valores__ = [2, 3]
+        self.juego.__jugador_actual__ = self.juego.jugador1
+        self.juego.__tablero__.__barra__[0] = 1
+        self.juego.intentar_poner_ficha(3)
+        # Testea que ya no esté en la barra y esté en el destino
+        self.assertEqual(self.juego.tablero.barra[0], 0) # Origen
+        self.assertEqual(self.juego.tablero.posiciones[2], ['B']) # Destino
+        # Testea que se haya usado el dado
+        self.assertEqual(self.juego.dados_valores, [2])
+
+    def test_intentar_poner_ficha_en_posicion_ocupada(self):
+        """Testea si se intenta poner en una posicion con 2 o más fichas contrarias"""
+        self.juego.__estado_juego__ = EstadoJuego.MOVIENDO
+        self.juego.__dados__.__valores__ = [6]
+        self.juego.__jugador_actual__ = self.juego.jugador1
+        self.juego.__tablero__.__barra__[0] = 1
+        with self.assertRaises(PosicionOcupadaException):
+            self.juego.intentar_poner_ficha(6)
 
     @patch('builtins.print')
     def test_cambiar_turno_de_1_a_2(self, print_patched):

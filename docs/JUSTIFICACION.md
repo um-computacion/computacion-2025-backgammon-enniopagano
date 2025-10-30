@@ -12,6 +12,12 @@ La clase dados representa los dados, y decidí que cuente con un único atributo
 
 La clase jugador representa a un jugodor que participa en la partida y esta es muy simple, ya que solo cuenta con el nombre del jugador y el color de su ficha, y los únicos métodos que tiene son los getters.
 
+La clase BackgammonGame será la lógica principal del juego, el "cerebro", que conoce todas las otras clases, maneja el flujo a través de los turnos, llama al tablero para cambiarlo y maneja los distintos estados que puede atravesar el juego que pueden ser cuando se están tirando los dados, cuando se están moviendo las fichas o cuando el juego está terminado
+
+Decisiones de diseño relevantes
+
+Decidí manejar el flujo y las interacciones entre el modelo y las interfaces, tanto cli como pygame a través de un controlador, esto más que nada para que se me haga más fácil la tarea de cómo se comunica el modelo con ambas interfaces a la vez, aparte de esta forma se me hace más fácil visualizar cómo aplicar los principios solid como la segregación de interfaces o la inversión de dependencias.
+
 Integración continua
 Para la integración continua usé una mezcla entre el archivo .yml que pasó el profesor Quinteros a Slack en el canal de la clase 09-03, y otro archivo que generosamente compartió mi compañero Joaquín Basile al canal de Backgammon el miércoles 3 de septiembre, junto con ciertas modificaciones sugeridas por la IA para que se amolde mejor a mí proyecto. El archivo de mi compañero aporta una solución a la hora de crear PR para que se actualicen los reportes del workflow además de un extra step que mergea automáticamente dichos PR.
 

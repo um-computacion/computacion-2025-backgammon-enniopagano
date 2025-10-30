@@ -67,7 +67,12 @@ class BackgammonGame:
         return self.__estado_juego__
 
     @property
-    def dados(self) -> List[int]:
+    def dados(self) -> Dice:
+        """Devuelve los valores actuales de los dados"""
+        return self.__dados__
+
+    @property
+    def dados_valores(self) -> List[int]:
         """Devuelve los valores actuales de los dados"""
         return self.__dados__.valores
 
@@ -116,7 +121,7 @@ class BackgammonGame:
             else:
                 self.__jugador_actual__ = self.jugador2
 
-            self.__dados__.set_valores([dado_j1, dado_j2])
+            self.dados.set_valores([dado_j1, dado_j2])
             self.__primer_turno__ = False
             self.__estado_juego__ = EstadoJuego.MOVIENDO
 
@@ -126,14 +131,16 @@ class BackgammonGame:
                 'ganador': self.turno_actual.nombre
             }
         else:
-            self.__dados__.tirar()
+            self.dados.tirar()
             self.__estado_juego__ = EstadoJuego.MOVIENDO
             return {
-                'dados': self.dados
+                'dados': self.dados_valores
             }
 
     def intentar_mover_ficha(self, posicion: int, dado_usado: int) -> None:
-        """Intenta mover una ficha desde una posición del tablero a otra, o a fuera del tablero
+        """
+        Intenta mover una ficha desde una posición del tablero a otra,
+        o a fuera del tablero
 
         Parametros
         ----------
@@ -150,18 +157,18 @@ class BackgammonGame:
             Si el valor de la posicion no es válido (entre 1 y 24)
             Si el dado no está disponible
         Exception
-            Si tienes fichas en la barra
+            Si el jugador tiene fichas en la barra
         FichaContrariaException
             Si intentas mover una ficha del rival
         """
 
-        if not (1 <= posicion <= 24):
-            raise ValueError('La posición de origen debe estar entre 1 y 24')
-
         if self.estado_actual != EstadoJuego.MOVIENDO:
             raise NoEsMomentoException('No es el momento de mover fichas')
 
-        if dado_usado not in self.dados:
+        if not (1 <= posicion <= 24):
+            raise ValueError('La posición de origen debe estar entre 1 y 24')
+
+        if dado_usado not in self.dados_valores:
             raise ValueError(f'El dado {dado_usado} no está disponible')
 
         turno_color = self.turno_actual.color
@@ -173,7 +180,7 @@ class BackgammonGame:
                 raise FichaContrariaException('Esa ficha no es tuya')
 
             self.tablero.mover(posicion, dado_usado, turno_color)
-            self.__dados__.usar(dado_usado)
+            self.dados.usar(dado_usado)
             self.comprobar_estado_post_movimiento()
 
         except (
@@ -181,6 +188,42 @@ class BackgammonGame:
             PosicionOcupadaException,
             PrimerCuadranteIncompletoException
         ):
+            raise
+
+    def intentar_poner_ficha(self, dado_usado: int) -> None:
+        """Intenta reincorporar una ficha desde la barra
+
+        Parametros
+        ----------
+        dado_usado : int
+            El valor del dado que se desea usar
+
+        Raises
+        ------
+        NoEsMomentoException
+            Si el estado del juego no es moviendo
+        ValueError
+            Si el dado no está disponible
+        Exeception
+            Si el jugador no tiene fichas en la barra
+        """
+
+        if self.estado_actual != EstadoJuego.MOVIENDO:
+            raise NoEsMomentoException('No es el momento de mover las fichas')
+
+        if dado_usado not in self.dados_valores:
+            raise ValueError(f'El dado {dado_usado} no está disponible')
+
+        turno_color = self.turno_actual.color
+        if self.tablero.barra_vacia(turno_color):
+            raise Exception('No tienes fichas en la barra')
+
+        try:
+            self.tablero.poner_ficha(dado_usado, turno_color)
+            self.dados.usar(dado_usado)
+            self.comprobar_estado_post_movimiento()
+
+        except PosicionOcupadaException:
             raise
 
     def cambiar_turno(self) -> None:
@@ -191,7 +234,7 @@ class BackgammonGame:
             self.__jugador_actual__ = self.jugador1
 
         self.__estado_juego__ = EstadoJuego.TIRANDO_DADOS
-        self.__dados__.resetear()
+        self.dados.resetear()
         print(f'Turno de {self.turno_actual.nombre}')
 
     def saltar_turno(self) -> None:
@@ -216,7 +259,7 @@ class BackgammonGame:
             self.__ganador__ = self.turno_actual
             return
 
-        if not self.__dados__.dados_disponibles():
+        if not self.dados.dados_disponibles():
             self.cambiar_turno()
 
 
