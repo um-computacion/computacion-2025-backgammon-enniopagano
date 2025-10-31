@@ -4,7 +4,6 @@ from core.src.jugador import Jugador
 from abc import ABC, abstractmethod
 from enum import Enum, auto
 from typing import List # Para el type hinting
-import random # Para la tirada inicial
 from core.src.exceptions import (
     PosicionOcupadaException,
     PrimerCuadranteIncompletoException,
@@ -111,12 +110,14 @@ class BackgammonGame:
             raise NoEsMomentoException('No es el momento de tirar los dados')
 
         if self.__primer_turno__ == True:
-            dado_j1 = random.randint(1, 6)
-            dado_j2 = random.randint(1, 6)
-
-            if dado_j1 == dado_j2:
+            self.dados.tirar()
+            if self.dados.fueron_dobles():
                 raise TiradaInicialEmpateException('Empate, hay que tirar de nuevo')
-            elif dado_j1 > dado_j2:
+
+            dado_j1 = self.dados_valores[0]
+            dado_j2 = self.dados_valores[1]
+
+            if dado_j1 > dado_j2:
                 self.__jugador_actual__ = self.jugador1
             else:
                 self.__jugador_actual__ = self.jugador2
@@ -131,10 +132,18 @@ class BackgammonGame:
                 'ganador': self.turno_actual.nombre
             }
         else:
-            self.dados.tirar()
+            dados_lanzados = self.dados.tirar()
+            turno_color = self.turno_actual.color
+            if not self.tablero.hay_movimientos_disponibles(turno_color, dados_lanzados):
+                self.cambiar_turno()
+                return {
+                    'dados': dados_lanzados,
+                    'turno_saltado': True
+                }
             self.__estado_juego__ = EstadoJuego.MOVIENDO
             return {
-                'dados': self.dados_valores
+                'dados': dados_lanzados,
+                'turno_saltado': False
             }
 
     def intentar_mover_ficha(self, posicion: int, dado_usado: int) -> None:
@@ -238,15 +247,7 @@ class BackgammonGame:
         print(f'Turno de {self.turno_actual.nombre}')
 
     def saltar_turno(self) -> None:
-        """Permite al jugador saltar el turno si no le quedan movimientos válidos (Usado por el controlador)
-
-        Raises
-        ------
-        NoEsMomentoException
-            El estado del juego no es moviendo
-        """
-        if self.estado_actual != EstadoJuego.MOVIENDO:
-            raise NoEsMomentoException('No puedes saltar turno si no estás moviendo fichas')
+        """Hace al jugador saltar el turno si no le quedan movimientos válidos"""
         print(f'{self.turno_actual.nombre} salta el turno')
         self.cambiar_turno()
 

@@ -13,6 +13,9 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 - Clase base (Accion)
 - Clases herencia (AccionLanzar, AccionMover, AccionPoner, AccionSalir)
 
+### Changed
+
+- Ahora lanzar_dados evalua los movimientos disponibles y si no hay salta automáticamente el turno
 
 ## [0.4.4] - 2025-10-29
 
