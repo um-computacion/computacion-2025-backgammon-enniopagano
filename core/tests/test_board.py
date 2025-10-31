@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from core.src.board import Board
 from core.src.exceptions import (
     PosicionOcupadaException,
@@ -284,4 +285,118 @@ class TestBoard(unittest.TestCase):
         self.board.__barra__[1] = 1
         self.assertEqual(self.board.barra_vacia('N'), False)
 
+    def test_hay_movimientos_disponibles_desde_barra_blancas(self):
+        """Testea que exista la posibilidad de poner una ficha blanca desde la barra"""
+        # Limpio el resto de posiciones
+        self.board.__posiciones__[0] = []
+        self.board.__posiciones__[11] = []
+        self.board.__posiciones__[16] = []
+        self.board.__posiciones__[18] = []
+        self.board.__barra__[0] = 1
+        self.assertEqual(self.board.hay_movimientos_disponibles('B', [1]), True)
 
+    @patch('core.src.board.Board.primer_cuadrante', return_value=True)
+    @patch('core.src.board.Board.movimiento_posible', return_value=True)
+    def test_hay_movimientos_disponibles_en_el_tablero_fuera_blancas(self,
+        movimiento_patched,
+        cuadrante_patched
+    ):
+        """Testea que exista la posibilidad de sacar una ficha blanca"""
+        # Limpio el resto de posiciones
+        self.board.__posiciones__[0] = []
+        self.board.__posiciones__[11] = []
+        self.board.__posiciones__[16] = []
+        self.assertEqual(self.board.hay_movimientos_disponibles('B', [6]), True)
+
+    def test_hay_movimientos_disponibles_en_el_tablero_blancas(self):
+        """Testea que exista la posibilidad de mover una ficha blanca dentro del tablero"""
+        # Limpio el resto de posiciones
+        self.board.__posiciones__[0] = []
+        self.board.__posiciones__[11] = []
+        self.board.__posiciones__[16] = []
+        self.assertEqual(self.board.hay_movimientos_disponibles('B', [4]), True)
+
+    def test_no_hay_movimientos_disponibles_para_poner_blancas(self):
+        """Testea que no exista la posibilidad de poner una ficha en el tablero"""
+        # Ocupa todo el home de las fichas negras
+        self.board.__barra__[0] = 1
+        self.board.__posiciones__[0] = ['N'] * 2
+        self.board.__posiciones__[1] = ['N'] * 2
+        self.board.__posiciones__[2] = ['N'] * 2
+        self.board.__posiciones__[3] = ['N'] * 2
+        self.board.__posiciones__[4] = ['N'] * 2
+        self.board.__posiciones__[5] = ['N'] * 2
+        self.assertEqual(self.board.hay_movimientos_disponibles('B', [1,2,3,4,5,6]), False)
+
+    def test_no_hay_movimientos_disponibles_para_mover_blancas(self):
+        """Testea que no exista la posibilidad de mover una ficha en el tablero"""
+        # Llena las 6 posiciones en frente de la ficha con fichas contrarias
+        self.board.__posiciones__[1] = ['N'] * 2
+        self.board.__posiciones__[2] = ['N'] * 2
+        self.board.__posiciones__[3] = ['N'] * 2
+        self.board.__posiciones__[4] = ['N'] * 2
+        self.board.__posiciones__[5] = ['N'] * 2
+        self.board.__posiciones__[6] = ['N'] * 2
+        # Limpia las otras posiciones con fichas blancas
+        self.board.__posiciones__[11] = []
+        self.board.__posiciones__[16] = []
+        self.board.__posiciones__[18] = []
+        self.assertEqual(self.board.hay_movimientos_disponibles('B', [1,2,3,4,5,6]), False)
+
+    def test_hay_movimientos_disponibles_desde_barra_negras(self):
+        """Testea que exista la posibilidad de poner una ficha negra desde la barra"""
+        # Limpio el resto de posiciones
+        self.board.__posiciones__[23] = []
+        self.board.__posiciones__[12] = []
+        self.board.__posiciones__[7] = []
+        self.board.__posiciones__[5] = []
+        self.board.__barra__[1] = 1
+        self.assertEqual(self.board.hay_movimientos_disponibles('N', [1]), True)
+
+    @patch('core.src.board.Board.primer_cuadrante', return_value=True)
+    @patch('core.src.board.Board.movimiento_posible', return_value=True)
+    def test_hay_movimientos_disponibles_en_el_tablero_fuera_negras(self,
+        movimiento_patched,
+        cuadrante_patched
+    ):
+        """Testea que exista la posibilidad de sacar una ficha negra"""
+        # Limpio el resto de posiciones
+        self.board.__posiciones__[23] = []
+        self.board.__posiciones__[12] = []
+        self.board.__posiciones__[7] = []
+        self.assertEqual(self.board.hay_movimientos_disponibles('N', [6]), True)
+
+    def test_hay_movimientos_disponibles_en_el_tablero_negras(self):
+        """Testea que exista la posibilidad de mover una ficha negra dentro del tablero"""
+        # Limpio el resto de posiciones
+        self.board.__posiciones__[23] = []
+        self.board.__posiciones__[12] = []
+        self.board.__posiciones__[7] = []
+        self.assertEqual(self.board.hay_movimientos_disponibles('N', [4]), True)
+
+    def test_no_hay_movimientos_disponibles_para_poner_negras(self):
+        """Testea que no exista la posibilidad de poner una ficha negra en el tablero"""
+        # Ocupa todo el home de las fichas blancas
+        self.board.__barra__[1] = 1
+        self.board.__posiciones__[23] = ['B'] * 2
+        self.board.__posiciones__[22] = ['B'] * 2
+        self.board.__posiciones__[21] = ['B'] * 2
+        self.board.__posiciones__[20] = ['B'] * 2
+        self.board.__posiciones__[19] = ['B'] * 2
+        self.board.__posiciones__[18] = ['B'] * 2
+        self.assertEqual(self.board.hay_movimientos_disponibles('N', [1,2,3,4,5,6]), False)
+
+    def test_no_hay_movimientos_disponibles_para_mover_negras(self):
+        """Testea que no exista la posibilidad de mover una ficha negra en el tablero"""
+        # Llena las 6 posiciones en frente de la ficha con fichas contrarias
+        self.board.__posiciones__[22] = ['B'] * 2
+        self.board.__posiciones__[21] = ['B'] * 2
+        self.board.__posiciones__[20] = ['B'] * 2
+        self.board.__posiciones__[19] = ['B'] * 2
+        self.board.__posiciones__[18] = ['B'] * 2
+        self.board.__posiciones__[17] = ['B'] * 2
+        # Limpia las otras posiciones con fichas blancas
+        self.board.__posiciones__[12] = []
+        self.board.__posiciones__[7] = []
+        self.board.__posiciones__[5] = []
+        self.assertEqual(self.board.hay_movimientos_disponibles('N', [1,2,3,4,5,6]), False)

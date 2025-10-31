@@ -122,7 +122,7 @@ class Board:
         self._ejecutar_movimiento(indice_destino, turno, indice_posicion, es_desde_barra=False)
 
         # Quitar ficha del origen
-        pos_origen = self.__posiciones__[indice_posicion]
+        pos_origen = self.posiciones[indice_posicion]
         pos_origen.pop(0)
 
     def poner_ficha(self, dado: int, turno: str) -> None:
@@ -193,7 +193,10 @@ class Board:
         # Caso especial: sacar ficha del tablero (bear off)
         if indice_destino >= 24 or indice_destino < 0:
             if self.primer_cuadrante(turno):
-                if self.movimiento_posible(turno, indice_posicion):
+                if (
+                    self.movimiento_posible(turno, indice_posicion)
+                    or (indice_destino == -1 or indice_destino == 25)
+                ):
                     self.ficha_sacada(turno)
                     return
                 else:
@@ -201,7 +204,7 @@ class Board:
             else:
                 raise PrimerCuadranteIncompletoException("No puedes sacar fichas aún")
 
-        pos_destino = self.__posiciones__[indice_destino]
+        pos_destino = self.posiciones[indice_destino]
 
         # Validar destino
         if len(pos_destino) >= 2 and pos_destino[0] != turno:
@@ -262,20 +265,17 @@ class Board:
         if turno == 'N':
             rango1 = 0
             rango2 = 6
-            fuera = self.__fuera__[1]
+            fuera = self.fuera[1]
         else:
             rango1 = 18
             rango2 = 24
-            fuera = self.__fuera__[0]
+            fuera = self.fuera[0]
         contador = 0
         for i in range(rango1, rango2):
-            if len(self.__posiciones__[i]) != 0:
-                if self.__posiciones__[i][0] == turno:
-                    contador += len(self.__posiciones__[i])
-        if contador == 15 - fuera:
-            return True
-        else:
-            return False
+            if len(self.posiciones[i]) != 0:
+                if self.posiciones[i][0] == turno:
+                    contador += len(self.posiciones[i])
+        return contador == 15 - fuera
 
     def condicion_victoria(self, turno: str) -> bool:
         """Verifica si algún jugador ganó la partida contando sus fichas fuera del tablero
@@ -292,15 +292,9 @@ class Board:
         """
 
         if turno == 'B':
-            if self.__fuera__[0] == 15:
-                return True
-            else:
-                return False
+            return self.fuera[0] == 15
         else:
-            if self.__fuera__[1] == 15:
-                return True
-            else:
-                return False
+            return self.fuera[1] == 15
 
     def get_ficha(self, posicion: int, turno: str) -> bool:
         """
@@ -324,7 +318,7 @@ class Board:
             En la posición dada no hay ninguna ficha
         """
 
-        posicion = self.__posiciones__[posicion]
+        posicion = self.posiciones[posicion]
         if len(posicion) == 0:
             raise PosicionVaciaException
 
@@ -358,7 +352,7 @@ class Board:
 
         contador = sumador
         for t in range(pos_restantes):
-            if len(self.__posiciones__[indice_posicion + contador]) > 0:
+            if len(self.posiciones[indice_posicion + contador]) > 0:
                 return False
             contador += sumador
 
@@ -374,15 +368,67 @@ class Board:
 
         Retorna
         -------
-        Retorna
-        -------
         bool
             'True' si no hay fichas en la barra y 'False' si hay
         """
 
         if turno == 'B':
-            barra = self.__barra__[0]
+            barra = self.barra[0]
         else:
-            barra = self.__barra__[1]
+            barra = self.barra[1]
 
         return (barra == 0)
+
+    def hay_movimientos_disponibles(self, turno: str, dados: List[int]) -> bool:
+        """Verifica si el jugador tiene al menos un movimiento posible
+
+        Parametros
+        ----------
+        turno : str
+            Puede ser 'B' o 'N' dependiendo del turno actual
+        dados : List[int]
+            Los valores de los dados disponibles (1 a 4 valores)
+
+        Retorna
+        -------
+        bool
+            'True' si hay movimientos disponibles y 'False' si no hay
+        """
+
+        if not self.barra_vacia(turno):
+            for dado in dados:
+                if turno == 'B':
+                    indice_destino =  dado - 1
+                else:
+                    indice_destino = 24 - dado
+
+                pos_destino = self.posiciones[indice_destino]
+
+                if len(pos_destino) < 2 or pos_destino[0] == turno:
+                    return True
+
+            return False
+
+        for i, pos in enumerate(self.posiciones):
+            if len(pos) > 0 and pos[0] == turno:
+                for dado in dados:
+                    if turno == 'B':
+                        indice_destino = i + dado
+                    else:
+                        indice_destino = i - dado
+
+                    # Por si la ficha sale del tablero
+                    if indice_destino < 0 or indice_destino >= 24:
+                        if (
+                            self.primer_cuadrante(turno)
+                            and (
+                                self.movimiento_posible(turno, i)
+                                or (indice_destino == -1 or indice_destino == 25)
+                            )
+                        ):
+                            return True
+
+                    elif len(self.posiciones[indice_destino]) < 2 or self.posiciones[indice_destino][0] == turno:
+                        return True
+
+        return False
