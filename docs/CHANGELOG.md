@@ -9,6 +9,7 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ### Added
 
+- Método clase board (hay_movimientos_disponibles)
 - Clase base (Accion)
 - Clases herencia (AccionLanzar, AccionMover, AccionPoner, AccionSalir)
 
