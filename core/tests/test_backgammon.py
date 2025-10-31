@@ -108,12 +108,27 @@ class TestBackgammon(unittest.TestCase):
         self.assertEqual(self.juego.__primer_turno__, False)
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
 
+    @patch('builtins.print')
+    @patch('core.src.board.Board.hay_movimientos_disponibles', return_value=False)
+    @patch('random.randint', side_effect=[1, 4])
+    def test_lanzar_dados_salta_turno(self, tirada_patched, movimientos_patched, print_patched  ):
+        """Testea una tirada sin movimientos disponibles"""
+        self.juego.__primer_turno__ = False
+        self.juego.__jugador_actual__ = self.juego.jugador1
+        # Testea lo que retorna al controlador
+        resultado = self.juego.lanzar_dados()
+        self.assertEqual(resultado['dados'], [1, 4])
+        self.assertEqual(resultado['turno_saltado'], True)
+        # Testea como quedó el turno
+        self.assertEqual(self.juego.turno_actual, self.juego.jugador2)
+
     @patch('random.randint', side_effect=[1, 4])
     def test_lanzar_dados_normal(self, tirada_patched):
         """Testea una tirada normal"""
         self.juego.__primer_turno__ = False
+        self.juego.__jugador_actual__ = self.juego.jugador1
         # Testea lo que retorna al controlador
-        self.assertEqual(self.juego.lanzar_dados(), {'dados': self.juego.dados_valores})
+        self.assertEqual(self.juego.lanzar_dados(), {'dados': self.juego.dados_valores, 'turno_saltado': False})
         # Testea como quedó el estado
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.MOVIENDO)
 
@@ -273,11 +288,6 @@ class TestBackgammon(unittest.TestCase):
         self.assertEqual(self.juego.__jugador_actual__, self.juego.__jugador1__)
         self.assertEqual(self.juego.__estado_juego__, EstadoJuego.TIRANDO_DADOS)
         self.assertEqual(self.juego.__dados__.__valores__, [])
-
-    def test_saltar_turno_error(self):
-        """Testea que se levante el error a no estar en estado de movimiento"""
-        with self.assertRaises(NoEsMomentoException):
-            self.juego.saltar_turno()
 
     @patch('builtins.print')
     def test_saltar_turno_jugador1(self, print_patched):
