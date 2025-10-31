@@ -2,9 +2,9 @@ Name                     Stmts   Miss  Cover   Missing
 ------------------------------------------------------
 core/src/__init__.py         0      0   100%
 core/src/backgammon.py     116      0   100%
-core/src/board.py          114      1    99%   200
+core/src/board.py          130      1    99%   203
 core/src/dados.py           31      0   100%
 core/src/exceptions.py      14      0   100%
 core/src/jugador.py         10      0   100%
 ------------------------------------------------------
-TOTAL                      285      1    99%
+TOTAL                      301      1    99%

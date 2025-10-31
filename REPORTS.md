@@ -5,12 +5,12 @@ Name                     Stmts   Miss  Cover   Missing
 ------------------------------------------------------
 core/src/__init__.py         0      0   100%
 core/src/backgammon.py     116      0   100%
-core/src/board.py          114      1    99%   200
+core/src/board.py          130      1    99%   203
 core/src/dados.py           31      0   100%
 core/src/exceptions.py      14      0   100%
 core/src/jugador.py         10      0   100%
 ------------------------------------------------------
-TOTAL                      285      1    99%
+TOTAL                      301      1    99%
 
 ```
 ## Pylint Report
@@ -24,20 +24,18 @@ core/src/dados.py:68:8: R1705: Unnecessary "else" after "return", remove the "el
 ************* Module core.src.jugador
 core/src/jugador.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 ************* Module core.src.board
-core/src/board.py:200:0: C0301: Line too long (103/100) (line-too-long)
-core/src/board.py:259:0: C0301: Line too long (101/100) (line-too-long)
-core/src/board.py:388:0: C0304: Final newline missing (missing-final-newline)
-core/src/board.py:388:0: C0325: Unnecessary parens after 'return' keyword (superfluous-parens)
+core/src/board.py:203:0: C0301: Line too long (103/100) (line-too-long)
+core/src/board.py:262:0: C0301: Line too long (101/100) (line-too-long)
+core/src/board.py:380:0: C0325: Unnecessary parens after 'return' keyword (superfluous-parens)
+core/src/board.py:431:0: C0301: Line too long (113/100) (line-too-long)
 core/src/board.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 core/src/board.py:196:16: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+core/src/board.py:198:24: R1714: Consider merging these comparisons with 'in' by using 'indice_destino in (-1, 25)'. Use a set instead if elements are hashable. (consider-using-in)
 core/src/board.py:162:8: W0613: Unused argument 'es_desde_barra' (unused-argument)
-core/src/board.py:275:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
-core/src/board.py:275:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:295:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
-core/src/board.py:295:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:300:12: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
-core/src/board.py:300:12: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/board.py:360:12: W0612: Unused variable 't' (unused-variable)
+core/src/board.py:294:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+core/src/board.py:354:12: W0612: Unused variable 't' (unused-variable)
+core/src/board.py:426:36: R1714: Consider merging these comparisons with 'in' by using 'indice_destino in (-1, 25)'. Use a set instead if elements are hashable. (consider-using-in)
+core/src/board.py:382:4: R0912: Too many branches (13/12) (too-many-branches)
 core/src/board.py:7:0: C0411: standard import "typing.List" should be placed before first party import "core.src.exceptions.PosicionOcupadaException"  (wrong-import-order)
 ************* Module core.src.exceptions
 core/src/exceptions.py:20:0: C0304: Final newline missing (missing-final-newline)
@@ -117,17 +115,21 @@ core/tests/test_dice.py:80:4: C0116: Missing function or method docstring (missi
 core/tests/test_dice.py:81:60: W0612: Unused variable 'randint_patched' (unused-variable)
 core/tests/test_dice.py:82:12: W0612: Unused variable 'tirada' (unused-variable)
 ************* Module core.tests.test_board
-core/tests/test_board.py:287:0: C0305: Trailing newlines (trailing-newlines)
+core/tests/test_board.py:402:0: C0304: Final newline missing (missing-final-newline)
 core/tests/test_board.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-core/tests/test_board.py:9:0: C0115: Missing class docstring (missing-class-docstring)
-core/tests/test_board.py:169:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
-core/tests/test_board.py:175:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
-core/tests/test_board.py:200:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
-core/tests/test_board.py:206:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
-core/tests/test_board.py:9:0: R0904: Too many public methods (21/20) (too-many-public-methods)
+core/tests/test_board.py:10:0: C0115: Missing class docstring (missing-class-docstring)
+core/tests/test_board.py:170:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+core/tests/test_board.py:176:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+core/tests/test_board.py:201:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+core/tests/test_board.py:207:8: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+core/tests/test_board.py:301:8: W0613: Unused argument 'movimiento_patched' (unused-argument)
+core/tests/test_board.py:302:8: W0613: Unused argument 'cuadrante_patched' (unused-argument)
+core/tests/test_board.py:359:8: W0613: Unused argument 'movimiento_patched' (unused-argument)
+core/tests/test_board.py:360:8: W0613: Unused argument 'cuadrante_patched' (unused-argument)
+core/tests/test_board.py:10:0: R0904: Too many public methods (31/20) (too-many-public-methods)
 
 -----------------------------------
-Your code has been rated at 8.57/10
+Your code has been rated at 8.71/10
 
 
 ```
