@@ -131,6 +131,7 @@ class VistaConsola(IVistaJuego):
     def mostrar_error(self, error: str) -> None:
         """Muestra un mensaje de error al jugador"""
         print(f'ERROR: {error}')
+        input("\n...Presiona Enter para continuar...")
 
     def cerrar(self) -> None:
         """Limpia la consola y muestra un mensaje al salir"""
