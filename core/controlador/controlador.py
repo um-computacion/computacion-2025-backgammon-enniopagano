@@ -40,8 +40,8 @@ class ControladorJuego:
                 self.__juego__.turno_actual
             )
             # Comprueba si hay un ganador
-            if self.__modelo__.estado_actual == EstadoJuego.FIN_JUEGO:
-                self.__vista__.mostrar_mensaje(f'{self.__modelo__.ganador.nombre}')
+            if self.__juego__.estado_actual == EstadoJuego.FIN_JUEGO:
+                self.__vista__.mostrar_mensaje(f'{self.__juego__.ganador.nombre}')
                 running = False
 
             # Obtiene la entrada del jugador
@@ -56,7 +56,7 @@ class ControladorJuego:
                     running = False
                 elif isinstance(accion, AccionLanzar):
                     # Tira los dados
-                    resultado = self.__modelo__.lanzar_dados()
+                    resultado = self.__juego__.lanzar_dados()
                     if 'ganador' in resultado:
                         dado_j1 = resultado['dados'][0]
                         dado_j2 = resultado['dados'][1]
@@ -75,10 +75,10 @@ class ControladorJuego:
                         self.__vista__.mostrar_error('No hay movimientos disponibles, turno saltado')
                 
                 elif isinstance(accion, AccionMover):
-                    self.__modelo__.intentar_mover_ficha(accion.origen, accion.dado)
+                    self.__juego__.intentar_mover_ficha(accion.origen, accion.dado)
 
                 elif isinstance(accion, AccionPoner):
-                    self.__modelo__.intentar_poner_ficha(accion.dado)
+                    self.__juego__.intentar_poner_ficha(accion.dado)
             
             # Este error es particular porque no es un fallo como tal, es más una instrucción de repetir
             except TiradaInicialEmpateException as e:
