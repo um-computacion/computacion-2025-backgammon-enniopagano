@@ -1,16 +1,29 @@
 # Automated Reports
 ## Coverage Report
 ```text
-Name                     Stmts   Miss  Cover   Missing
-------------------------------------------------------
-core/src/__init__.py         0      0   100%
-core/src/backgammon.py     118      0   100%
-core/src/board.py          130      1    99%   203
-core/src/dados.py           31      0   100%
-core/src/exceptions.py      14      0   100%
-core/src/jugador.py         10      0   100%
-------------------------------------------------------
-TOTAL                      303      1    99%
+Name                              Stmts   Miss  Cover   Missing
+---------------------------------------------------------------
+core/__init__.py                      0      0   100%
+core/cli/__init__.py                  0      0   100%
+core/cli/cli.py                      83     41    51%   21, 35-38, 42-83, 94, 111-112, 122-125, 129, 137-138
+core/cli/test_cli.py                 53      0   100%
+core/controlador/__init__.py          0      0   100%
+core/controlador/acciones.py         13      0   100%
+core/controlador/controlador.py      43     43     0%   1-91
+core/controlador/vista_juego.py      20      6    70%   13, 18, 26, 31, 36, 41
+core/src/__init__.py                  0      0   100%
+core/src/backgammon.py              118      0   100%
+core/src/board.py                   130      1    99%   203
+core/src/dados.py                    31      0   100%
+core/src/exceptions.py               14      0   100%
+core/src/jugador.py                  10      0   100%
+core/tests/__init__.py                0      0   100%
+core/tests/test_backgammon.py       219      1    99%   146
+core/tests/test_board.py            253      0   100%
+core/tests/test_dice.py              60      0   100%
+core/tests/test_jugador.py           16      0   100%
+---------------------------------------------------------------
+TOTAL                              1063     92    91%
 
 ```
 ## Pylint Report
