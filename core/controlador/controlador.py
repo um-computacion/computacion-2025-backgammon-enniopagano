@@ -35,9 +35,9 @@ class ControladorJuego:
         while running:
             # Dibuja el tablero
             self.__vista__.dibujar_tablero(
-                self.__modelo__.tablero,
-                self.__modelo__.dados_valores,
-                self.__modelo__.turno_actual
+                self.__juego__.tablero,
+                self.__juego__.dados_valores,
+                self.__juego__.turno_actual
             )
             # Comprueba si hay un ganador
             if self.__modelo__.estado_actual == EstadoJuego.FIN_JUEGO:
