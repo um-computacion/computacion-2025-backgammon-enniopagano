@@ -36,7 +36,7 @@ class ControladorJuego:
             # Dibuja el tablero
             self.__vista__.dibujar_tablero(
                 self.__modelo__.tablero,
-                self.__modelo__.dados_valores
+                self.__modelo__.dados_valores,
                 self.__modelo__.turno_actual
             )
             # Comprueba si hay un ganador
