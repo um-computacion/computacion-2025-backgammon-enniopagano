@@ -442,3 +442,78 @@ Test
 
     if __name__ == '__main__':
         unittest.main()
+
+## Gemini 2.5 Pro - 31/10/2025
+
+### Prompt:
+Necesito para mí interfaz de VistaConsola, una función que limpie la consola de comandos, cómo puedo hacerla?
+
+Resultado de la IA:
+
+El prompt se encuentra en el código sin modificaciones relevantes
+class VistaConsola:
+
+    def __init__(self):
+        # Detecta el sistema operativo para saber qué comando usar
+        self.clear_command = 'cls' if os.name == 'nt' else 'clear'
+
+    def _limpiar_pantalla(self) -> None:
+        """Limpia la pantalla de la terminal."""
+        os.system(self.clear_command)
+
+## Gemini 2.5 Pro - 31/10/2025
+
+### Prompt:
+Cómo puedo implementar una función que dibuje el tablero en la consola? Tenía pensado usar una función que dibuje una posicion a la vez y después otra función que dibuje al tablero completo llamando a la anterior y recibiendo los parametros tablero (el objeto tablero que conoce las posiciones), dados (el objeto dados que conoce los valores) y jugador_actual(el jugador que le toca jugar), si tienes una idea mejor acepto recomendaciones
+
+
+Resultado de la IA:
+
+El prompt se encuentra en el código sin modificaciones relevantes
+    def _format_punto(self, punto: list) -> str:
+        """Helper para formatear una sola posición del tablero."""
+        if not punto:
+            return "..." # Vacío
+        
+        ficha = punto[0] # 'B' o 'N'
+        count = len(punto)
+        
+        # Formato: "B2 ", "N5 ", "N12" (se corta si > 9)
+        return f"{ficha}{count}".ljust(3)
+
+    def dibujar_tablero(self, tablero: Board, dados: Dice, jugador_actual: Optional[Jugador]) -> None:
+        """Dibuja el estado completo del juego en arte ASCII."""
+        self._limpiar_pantalla()
+        
+        # --- Puntos 12 al 1 (Fila superior) ---
+        print(" 12  11  10   9   8   7   |   6   5   4   3   2   1")
+        print("+" + "-" * 27 + "+" + "-" * 27 + "+")
+        top_line = " ".join([self._format_punto(tablero.posiciones[i]) for i in range(11, 5, -1)])
+        top_line += " | "
+        top_line += " ".join([self._format_punto(tablero.posiciones[i]) for i in range(5, -1, -1)])
+        print(f"| {top_line} |")
+        
+        print("|                         |                         |")
+        
+        # --- Barra y Fichas Fuera ---
+        barra_b = f"B: {tablero.barra[0]}"
+        barra_n = f"N: {tablero.barra[1]}"
+        print(f"| BARRA: {barra_b.ljust(8)} | {barra_n.ljust(8)}         |")
+        
+        fuera_b = f"B: {tablero.fuera[0]}"
+        fuera_n = f"N: {tablero.fuera[1]}"
+        print(f"| FUERA: {fuera_b.ljust(8)} | {fuera_n.ljust(8)}         |")
+        
+        print("|                         |                         |")
+
+        # --- Puntos 13 al 24 (Fila inferior) ---
+        bot_line = " ".join([self._format_punto(tablero.posiciones[i]) for i in range(12, 18)])
+        bot_line += " | "
+        bot_line += " ".join([self._format_punto(tablero.posiciones[i]) for i in range(18, 24)])
+        print(f"| {bot_line} |")
+        
+        print("+" + "-" * 27 + "+" + "-" * 27 + "+")
+        print(" 13  14  15  16  17  18  |  19  20  21  22  23  24")
+        
+        print("=" * 60)
+
