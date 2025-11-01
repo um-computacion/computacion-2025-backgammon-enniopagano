@@ -44,9 +44,9 @@ class VistaConsola(IVistaJuego):
         # Fila superior
         print(" 12  11  10   9   8   7   |   6   5   4   3   2   1")
         print("+" + "-" * 27 + "+" + "-" * 27 + "+")
-        top_line = " ".join([self._format_punto(tablero.posiciones[i]) for i in range(11, 5, -1)])
+        top_line = " ".join([self.obtener_posicion(tablero.posiciones[i]) for i in range(11, 5, -1)])
         top_line += " | "
-        top_line += " ".join([self._format_punto(tablero.posiciones[i]) for i in range(5, -1, -1)])
+        top_line += " ".join([self.obtener_posicion(tablero.posiciones[i]) for i in range(5, -1, -1)])
         print(f"| {top_line} |")
         
         print("|                         |                         |")
@@ -63,9 +63,9 @@ class VistaConsola(IVistaJuego):
         print("|                         |                         |")
 
         # Fila inferior
-        bot_line = " ".join([self._format_punto(tablero.posiciones[i]) for i in range(12, 18)])
+        bot_line = " ".join([self.obtener_posicion(tablero.posiciones[i]) for i in range(12, 18)])
         bot_line += " | "
-        bot_line += " ".join([self._format_punto(tablero.posiciones[i]) for i in range(18, 24)])
+        bot_line += " ".join([self.obtener_posicion(tablero.posiciones[i]) for i in range(18, 24)])
         print(f"| {bot_line} |")
         
         print("+" + "-" * 27 + "+" + "-" * 27 + "+")
@@ -74,12 +74,12 @@ class VistaConsola(IVistaJuego):
         print("=" * 60)
 
         # Información del juego
-        if jugador_actual:
-            print(f'Turno de: {jugador_actual.nombre}')
+        if turno:
+            print(f'Turno de: {turno.nombre}')
         else:
             print('Tirada inicial para definir quién empieza')
 
-        print(f'Dados disponibles: {dados.valores}')
+        print(f'Dados disponibles: {dados}')
         print('-' * 60)
 
     def obtener_entrada(self):
