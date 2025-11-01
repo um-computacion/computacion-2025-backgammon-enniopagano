@@ -35,7 +35,7 @@ jobs:
 
       - name: Run tests and generate coverage report
         run: |
-          coverage run --source=core/src -m unittest discover -s core/tests
+          coverage run --source=core -m unittest discover -s core/tests
           coverage xml -o cobertura.xml
           coverage report -m --rcfile=.coveragerc > coverage_report.txt
 

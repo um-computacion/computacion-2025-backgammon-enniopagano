@@ -5,6 +5,12 @@ Todos los cambios notables a este proyecto estarán en este documento.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2025-11-01
+
+### Added
+
+- Implementado el juego por consola de comandos (CLI)
+
 ## [0.4.6] - 2025-10-31
 
 ### Added
