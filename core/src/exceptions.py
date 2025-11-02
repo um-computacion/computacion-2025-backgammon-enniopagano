@@ -1,5 +1,5 @@
-class PosicionVaciaException(Exception):
-    def __init__(self, message="No hay ninguna ficha en esa posición."):
+class PosicionOcupadaException(Exception):
+    def __init__(self, message="Esa posición está ocupada por el rival"):
         super().__init__(message)
 
 class PrimerCuadranteIncompletoException(Exception):
