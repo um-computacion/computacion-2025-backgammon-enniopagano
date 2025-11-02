@@ -185,7 +185,8 @@ class BackgammonGame:
             raise Exception('Tienes fichas en la barra')
 
         try:
-            if not self.tablero.get_ficha(posicion, turno_color):
+            idx = posicion - 1
+            if not self.tablero.get_ficha(idx, turno_color):
                 raise FichaContrariaException('Esa ficha no es tuya')
 
             self.tablero.mover(posicion, dado_usado, turno_color)
