@@ -14,8 +14,8 @@ core/controlador/vista_juego.py      20      6    70%   13, 18, 26, 31, 36, 41
 core/src/__init__.py                  0      0   100%
 core/src/backgammon.py              118      0   100%
 core/src/board.py                   130      1    99%   203
-core/src/dados.py                    31      0   100%
-core/src/exceptions.py               14      0   100%
+core/src/dados.py                    27      0   100%
+core/src/exceptions.py               20      1    95%   15
 core/src/jugador.py                  10      0   100%
 core/tests/__init__.py                0      0   100%
 core/tests/test_backgammon.py       219      1    99%   146
@@ -23,17 +23,17 @@ core/tests/test_board.py            253      0   100%
 core/tests/test_dice.py              60      0   100%
 core/tests/test_jugador.py           16      0   100%
 ---------------------------------------------------------------
-TOTAL                              1064     92    91%
+TOTAL                              1066     93    91%
 
 ```
 ## Pylint Report
 ```text
 ************* Module core.src.dados
 core/src/dados.py:65:0: C0303: Trailing whitespace (trailing-whitespace)
+core/src/dados.py:68:0: C0304: Final newline missing (missing-final-newline)
 core/src/dados.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 core/src/dados.py:57:8: R1703: The if statement can be replaced with 'return bool(test)' (simplifiable-if-statement)
 core/src/dados.py:57:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
-core/src/dados.py:68:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
 ************* Module core.src.jugador
 core/src/jugador.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 ************* Module core.src.board
@@ -51,15 +51,15 @@ core/src/board.py:426:36: R1714: Consider merging these comparisons with 'in' by
 core/src/board.py:382:4: R0912: Too many branches (13/12) (too-many-branches)
 core/src/board.py:7:0: C0411: standard import "typing.List" should be placed before first party import "core.src.exceptions.PosicionOcupadaException"  (wrong-import-order)
 ************* Module core.src.exceptions
-core/src/exceptions.py:20:0: C0304: Final newline missing (missing-final-newline)
+core/src/exceptions.py:26:0: C0304: Final newline missing (missing-final-newline)
 core/src/exceptions.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 core/src/exceptions.py:1:0: C0115: Missing class docstring (missing-class-docstring)
-core/src/exceptions.py:4:0: C0115: Missing class docstring (missing-class-docstring)
-core/src/exceptions.py:7:0: C0115: Missing class docstring (missing-class-docstring)
-core/src/exceptions.py:10:0: C0115: Missing class docstring (missing-class-docstring)
+core/src/exceptions.py:5:0: C0115: Missing class docstring (missing-class-docstring)
+core/src/exceptions.py:9:0: C0115: Missing class docstring (missing-class-docstring)
 core/src/exceptions.py:13:0: C0115: Missing class docstring (missing-class-docstring)
-core/src/exceptions.py:16:0: C0115: Missing class docstring (missing-class-docstring)
-core/src/exceptions.py:19:0: C0115: Missing class docstring (missing-class-docstring)
+core/src/exceptions.py:17:0: C0115: Missing class docstring (missing-class-docstring)
+core/src/exceptions.py:21:0: C0115: Missing class docstring (missing-class-docstring)
+core/src/exceptions.py:24:0: C0115: Missing class docstring (missing-class-docstring)
 ************* Module core.src.backgammon
 core/src/backgammon.py:177:0: C0325: Unnecessary parens after 'not' keyword (superfluous-parens)
 core/src/backgammon.py:255:0: C0301: Line too long (113/100) (line-too-long)
