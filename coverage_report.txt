@@ -9,7 +9,7 @@ core/controlador/acciones.py         13      0   100%
 core/controlador/controlador.py      43     43     0%   1-91
 core/controlador/vista_juego.py      20      6    70%   13, 18, 26, 31, 36, 41
 core/src/__init__.py                  0      0   100%
-core/src/backgammon.py              118      0   100%
+core/src/backgammon.py              119      0   100%
 core/src/board.py                   130      1    99%   203
 core/src/dados.py                    27      0   100%
 core/src/exceptions.py               20      1    95%   15
@@ -20,4 +20,4 @@ core/tests/test_board.py            253      0   100%
 core/tests/test_dice.py              60      0   100%
 core/tests/test_jugador.py           16      0   100%
 ---------------------------------------------------------------
-TOTAL                              1066     93    91%
+TOTAL                              1067     93    91%
