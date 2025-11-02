@@ -65,9 +65,4 @@ class Dice:
     
     def fueron_dobles(self) -> bool:
         """Verifica si la última tirada fueron dobles"""
-        if len(self.__valores__) == 4:
-            print("Entra en el condicional iguales")
-            return True
-        else:
-            print("Entra en el condicional distintos")
-            return False
+        return len(self.__valores__) == 4
