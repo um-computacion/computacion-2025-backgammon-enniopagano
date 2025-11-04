@@ -58,8 +58,8 @@ class ControladorJuego:
                     # Tira los dados
                     resultado = self.__juego__.lanzar_dados()
                     if 'ganador' in resultado:
-                        dado_j1 = resultado['dados'][0]
-                        dado_j2 = resultado['dados'][1]
+                        dado_j1 = resultado['dado_j1']
+                        dado_j2 = resultado['dado_j2']
                         ganador = resultado['ganador']
                         mensaje = (
                             f'Tirada inicial: '
@@ -68,6 +68,7 @@ class ControladorJuego:
                         )
                         self.__vista__.mostrar_mensaje(mensaje)
                         self.__vista__.mostrar_mensaje(f'Empieza {ganador}')
+                    
                     
                     self.__vista__.mostrar_mensaje(f'Dados: {resultado['dados']}')
 

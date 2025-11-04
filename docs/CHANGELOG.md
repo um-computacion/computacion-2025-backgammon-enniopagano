@@ -10,6 +10,7 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 ### Added
 
 - Implementado el juego por consola de comandos (CLI)
+- Implementado el juego por interfaz de Pygame
 
 ## [0.4.6] - 2025-10-31
 
