@@ -1,6 +1,7 @@
 from core.src.backgammon import BackgammonGame
 from core.controlador.controlador import ControladorJuego
 from core.cli.cli import VistaConsola
+from core.pygame_ui.pygame import VistaPygame
 
 def main():
     print("Bienvenido a Backgammon")
