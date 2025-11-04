@@ -24,11 +24,11 @@ COLOR_ERROR = (255, 50, 50)
 COLOR_HIGHLIGHT = (255, 255, 0, 100) # Amarillo semitransparente
 
 # Geometría
-SCREEN_WIDTH = 800
+SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
-MARGEN_LATERAL = 40
+MARGEN_LATERAL = 60
 MARGEN_VERTICAL = 40
-ANCHO_BARRA = 50
+ANCHO_BARRA = 40
 RADIO_FICHA = 20
 DIAMETRO_FICHA = RADIO_FICHA * 2
 ANCHO_PUNTO = (SCREEN_WIDTH - (MARGEN_LATERAL * 2) - ANCHO_BARRA) // 12
@@ -277,12 +277,12 @@ class VistaPygame(IVistaJuego):
             self.puntos_triangulos_bot.append(tuple(puntos_inf)) # Usar la nueva lista
 
         # Barra
-        self.rect_barra_n = pygame.Rect(SCREEN_WIDTH // 2 - ANCHO_BARRA // 2, MARGEN_VERTICAL, ANCHO_BARRA, SCREEN_HEIGHT // 2 - MARGEN_VERTICAL)
-        self.rect_barra_b = pygame.Rect(SCREEN_WIDTH // 2 - ANCHO_BARRA // 2, SCREEN_HEIGHT // 2, ANCHO_BARRA, SCREEN_HEIGHT // 2 - MARGEN_VERTICAL)
+        self.rect_barra_n = pygame.Rect(SCREEN_WIDTH // 2 - ANCHO_BARRA// 2, MARGEN_VERTICAL, ANCHO_BARRA, SCREEN_HEIGHT // 2 - MARGEN_VERTICAL)
+        self.rect_barra_b = pygame.Rect(SCREEN_WIDTH // 2 - ANCHO_BARRA// 2, SCREEN_HEIGHT // 2, ANCHO_BARRA, SCREEN_HEIGHT // 2 - MARGEN_VERTICAL)
 
         # Fichas Fuera (a la derecha de la barra)
-        self.rect_fuera_n = pygame.Rect(SCREEN_WIDTH - MARGEN_LATERAL + 5, MARGEN_VERTICAL, MARGEN_LATERAL - 10, SCREEN_HEIGHT // 2 - MARGEN_VERTICAL)
-        self.rect_fuera_b = pygame.Rect(SCREEN_WIDTH - MARGEN_LATERAL + 5, SCREEN_HEIGHT // 2, MARGEN_LATERAL - 10, SCREEN_HEIGHT // 2 - MARGEN_VERTICAL)
+        self.rect_fuera_n = pygame.Rect(SCREEN_WIDTH - MARGEN_LATERAL, MARGEN_VERTICAL, MARGEN_LATERAL, SCREEN_HEIGHT // 2 - MARGEN_VERTICAL)
+        self.rect_fuera_b = pygame.Rect(SCREEN_WIDTH - MARGEN_LATERAL, SCREEN_HEIGHT // 2, MARGEN_LATERAL, SCREEN_HEIGHT // 2 - MARGEN_VERTICAL)
 
     def _coords_a_elemento(self, pos):
         """Convierte coordenadas (x, y) a un elemento del juego."""
