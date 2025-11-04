@@ -7,7 +7,7 @@ No hubo instrucciones del sistema
 
 Resultado de la IA:
 
-La parte en **negrita** o encerrado entre asteriscos dobles **, siempre será la salida que está presente en el código
+La parte en **negrita** o encerrado entre asteriscos dobles **, será la salida que está presente en el código
 La salida está en el codigo con modificaciones 
 
 class Board:
@@ -55,3 +55,50 @@ Resultado de la IA:
 - **name: Run Pylint and generate report
   run: |
     pylint --rcfile=.pylintrc src tests > pylint_report.txt || true**
+
+## Gemini 2.5 Pro - 1/11/2025
+
+### Prompt:
+Puedes dibujar la estructura de las carpetas y los archivos del proyecto?
+
+Resultado de la IA:
+
+/tu_proyecto_backgammon/
+├── core/
+│   ├── __init__.py            # <-- (Archivo vacío, pero OBLIGATORIO)
+│   │
+│   ├── src/                   # --- EL MODELO ---
+│   │   ├── __init__.py        # <-- (OBLIGATORIO)
+│   │   ├── backgammon.py      (Tu clase BackgammonGame, EstadoJuego)
+│   │   ├── board.py           (Tu clase Board)
+│   │   ├── dados.py           (Tu clase Dice)
+│   │   ├── jugador.py         (Tu clase Jugador)
+│   │   └── exceptions.py      (Todas tus excepciones personalizadas)
+│   │
+│   ├── controlador/           # --- EL PEGAMENTO ---
+│   │   ├── __init__.py        # <-- (OBLIGATORIO)
+│   │   ├── controlador.py     (La clase ControladorJuego)
+│   │   ├── vista_juego.py     (La interfaz IVistaJuego)
+│   │   └── acciones.py        (Accion, AccionMover, AccionPoner, etc.)
+│   │
+│   └── cli/                   # --- VISTA 1 ---
+│       ├── __init__.py        # <-- (OBLIGATORIO)
+│       └── cli.py             (La clase VistaConsola)
+│
+├── pygame_ui/                 # --- VISTA 2 ---
+│   ├── __init__.py            # <-- (OBLIGATORIO)
+│   └── vista_pygame.py        (La clase VistaPygame que implementamos)
+│
+├── assets/                    # --- RECURSOS ---
+│   └── (aquí irían imágenes, fuentes y sonidos para Pygame)
+│
+├── tests/                     # --- PRUEBAS ---
+│   ├── __init__.py            # <-- (OBLIGATORIO)
+│   ├── test_board.py
+│   ├── test_motor_juego.py
+│   ├── test_cli_vista.py
+│   └── ...
+│
+├── main.py                    # <-- EL LANZADOR (El que ejecutas)
+│
+└── requirements.txt           (Aquí listas 'pygame')
