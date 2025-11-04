@@ -195,7 +195,7 @@ class Board:
             if self.primer_cuadrante(turno):
                 if (
                     self.movimiento_posible(turno, indice_posicion)
-                    or (indice_destino == -1 or indice_destino == 25)
+                    or (indice_destino == -1 or indice_destino == 24)
                 ):
                     self.ficha_sacada(turno)
                     return
